@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*Gitのじっけんちゅう、あとでけします*/
+
+using System.Collections;
 using UnityEngine;
 using Common;
 using Sailing.SingletonObject;
