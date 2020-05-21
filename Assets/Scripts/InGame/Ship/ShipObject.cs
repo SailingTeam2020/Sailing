@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿
+// 2020/05/15 小林更新
+
+using UnityEngine;
 using Photon.Pun;
 using Sailing.SingletonObject;
 
@@ -94,7 +97,7 @@ namespace Sailing
 
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
 
             if (!photonView.IsMine)
@@ -106,7 +109,6 @@ namespace Sailing
             {
                 ShipMove.Move(courseManager.WindManager.GetInfluence(transform));
             }
-
 
             if (IsRotate)
             {

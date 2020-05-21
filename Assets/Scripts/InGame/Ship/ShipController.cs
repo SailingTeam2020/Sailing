@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿
+// 2020/05/15 小林更新
+
+using UnityEngine;
 
 namespace Sailing
 {
@@ -24,7 +27,7 @@ namespace Sailing
         public void Rotate()
         {
 
-            transform.Rotate(RotateDirection, Space.Self);
+            transform.Rotate((RotateDirection * 0.05f) , Space.Self);
 
             Gyro();
 

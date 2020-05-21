@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿
+// 2020/05/15 小林更新
+
+using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
 
@@ -49,7 +52,7 @@ namespace Sailing
 
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             
             //カウントダウンが終了し、まだ船をスタートさせていない場合のみ
