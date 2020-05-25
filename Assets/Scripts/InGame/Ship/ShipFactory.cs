@@ -17,8 +17,7 @@ namespace Sailing
             float x = 3.0f * PhotonNetwork.LocalPlayer.ActorNumber;
             Vector3 vec = new Vector3(x + start.x, start.y, start.z);
 
-            GameObject obj = PhotonNetwork.Instantiate(ShipPrefabName, vec, Quaternion.identity) as GameObject;
-            obj.name = "Ship";
+            GameObject obj = PhotonNetwork.Instantiate(ShipPrefabName, vec, Quaternion.identity);
 
             if (!obj)
             {
