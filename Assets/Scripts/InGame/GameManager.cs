@@ -71,9 +71,7 @@ namespace Sailing
         /// </summary>
         public void StartRace()
         {
-
             Debug.Log("ゲームがスタートしました");
-
         }
 
         /// <summary>

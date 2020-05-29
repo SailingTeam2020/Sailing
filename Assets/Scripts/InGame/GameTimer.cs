@@ -22,9 +22,9 @@ namespace Sailing
 		[SerializeField]
 		private List<Sprite> numberSprite;
 
-		private SoundManager soundManager;
+        private SoundManager soundManager;
         AudioSource audioSource;
-		private Image countdownImage;
+        private Image countdownImage;
         public bool IsCountStart {
 			get;
 			set;
@@ -58,7 +58,6 @@ namespace Sailing
 
 		public void Initialize()
 		{
-
 			StartCoroutine("StartFanfare");
             audioSource = gameObject.GetComponent<AudioSource>();
 
@@ -91,20 +90,20 @@ namespace Sailing
             
 		}
 
-		public void TimerStop()
-		{
+        public void TimerStop()
+        {
 
-			Debug.Log("タイマーストップ：" + TimeTextTransport(GameTime));
-			IsCountStart = false;
+            Debug.Log("タイマーストップ：" + TimeTextTransport(GameTime));
+            IsCountStart = false;
             audioSource.Stop();
 
-		}
+        }
         public void StartBGM()
         {
             audioSource.Play();
         }
 
-		string TimeTextTransport(float time)
+        string TimeTextTransport(float time)
 		{
 
 			int m = (int)(time / 60);
