@@ -13,7 +13,7 @@ namespace Sailing
 
         private PhotonView photonView;
         private CourseManager courseManager;
-
+        private GameObject obj;
         public bool IsMove {
             get;
             private set;
@@ -77,6 +77,9 @@ namespace Sailing
                 child.GetComponent<Camera>().cullingMask = ~(1 << 8);
                 child.transform.position = gameObject.transform.position + new Vector3(0.0f, 4.0f, -10.0f);
                 child.transform.LookAt(gameObject.transform);
+
+                GameObject obj = (GameObject)Resources.Load("ConcentratObject");
+                Instantiate(obj, this.transform.position, Quaternion.identity);
             }
             else
             {
