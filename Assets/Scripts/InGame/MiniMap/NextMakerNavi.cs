@@ -6,7 +6,7 @@ namespace Sailing
 
 	public class NextMakerNavi : MonoBehaviour
 	{
-
+        private GameObject nextpoint;
 		private PhotonView photonView;
 		private ShipObject shipObject;
 		private CourseManager courseManager;
@@ -30,13 +30,12 @@ namespace Sailing
 			lineRenderer.endWidth = 0.1f;
 			//頂点の数を決める
 			lineRenderer.positionCount = 2;
-
 		}
 
 		void Update()
 		{
-
-			if (!photonView.IsMine || shipObject.IsGoal) { 
+         
+            if (!photonView.IsMine || shipObject.IsGoal) { 
 				return;
 			}
 

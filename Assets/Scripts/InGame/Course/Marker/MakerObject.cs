@@ -52,8 +52,7 @@ namespace Sailing
 			{
 				n.tag = "Out";
 			}
-
-		}
+        }
 
 		private void GoalMakerTagInitalize()
 		{

@@ -23,7 +23,7 @@ namespace Sailing
 		private List<Sprite> numberSprite;
 
         private SoundManager soundManager;
-        AudioSource audioSource;
+        //AudioSource audioSource;
         private Image countdownImage;
         public bool IsCountStart {
 			get;
@@ -59,7 +59,7 @@ namespace Sailing
 		public void Initialize()
 		{
 			StartCoroutine("StartFanfare");
-            audioSource = gameObject.GetComponent<AudioSource>();
+            //audioSource = gameObject.GetComponent<AudioSource>();
 
         }
 
@@ -95,12 +95,13 @@ namespace Sailing
 
             Debug.Log("タイマーストップ：" + TimeTextTransport(GameTime));
             IsCountStart = false;
-            audioSource.Stop();
+            //audioSource.Stop();
 
         }
         public void StartBGM()
         {
-            audioSource.Play();
+            //audioSource.Play();
+            soundManager.PlayBGM("Title");
         }
 
         string TimeTextTransport(float time)
