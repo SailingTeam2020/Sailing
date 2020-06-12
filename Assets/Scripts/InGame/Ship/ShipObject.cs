@@ -13,7 +13,11 @@ namespace Sailing
 
         private PhotonView photonView;
         private CourseManager courseManager;
-        private GameObject obj;
+        private GameObject Concentratobj;
+        private GameObject Splashesobj;
+        private GameObject Concentrat;
+        private GameObject Splashes;
+        public GameObject Player;
         public bool IsMove {
             get;
             private set;
@@ -78,8 +82,14 @@ namespace Sailing
                 child.transform.position = gameObject.transform.position + new Vector3(0.0f, 4.0f, -10.0f);
                 child.transform.LookAt(gameObject.transform);
 
-                GameObject obj = (GameObject)Resources.Load("ConcentratObject");
-                Instantiate(obj, this.transform.position, Quaternion.identity);
+                Concentrat = (GameObject)Resources.Load("ConcentratObject");
+                Splashes = (GameObject)Resources.Load("SplashesEffect");
+                Player = GameObject.Find("Ship");
+                Concentratobj = Instantiate(Concentrat, this.transform.position, Quaternion.identity);
+                Splashesobj = Instantiate(Splashes, this.transform.position, Quaternion.identity);
+                Concentratobj.transform.SetParent(Player.transform, true);
+                Splashesobj.transform.SetParent(Player.transform, true);
+                Splashesobj.transform.rotation = Quaternion.Euler(0, 180, 0);
             }
             else
             {
