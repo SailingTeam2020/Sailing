@@ -93,7 +93,7 @@ namespace Sailing
 
                 GameObject child = new GameObject();
                 child.transform.parent = gameObject.transform;
-                child.name = "Camera";
+                child.name = "GameViewCamera";
                 child.AddComponent<Camera>();
                 child.GetComponent<Camera>().cullingMask = ~(1 << 8);
                 child.transform.position = gameObject.transform.position + new Vector3(0.0f, 4.0f, -10.0f);
