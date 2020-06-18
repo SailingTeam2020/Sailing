@@ -1,78 +1,90 @@
-﻿using System.Collections;
+﻿//2020/06/18　宮崎
+
+using System.Collections;
 using UnityEngine;
+using System.Linq;
+using Unity;
 
-public class CpushipMove : MonoBehaviour
+namespace Sailing
 {
-    public float angle;
-    public float axis;
-    private GameObject nextMarker;//次の目的地
-
-    private float Cpu_Speed;
-    private float Cpu_Rotate;
-
-    void Start()
+    public class CpushipMove : MonoBehaviour
     {
-        Cpu_Speed = 0.05f;//テスト的に設定　プレイヤーに合わせて変える必要あり
-        Cpu_Rotate = 0.5f;//テスト的に設定　プレイヤーに合わせて変える必要あり
-        //Invoke("NextMarkerSet", 10.0f);
-        nextMarker = serchTag(gameObject, "EnterMarker");
-    }
 
-    void Update()
-    {
-        var diff = nextMarker.transform.position - this.gameObject.transform.position; //ターゲットと
-        var axis = Vector3.Cross(transform.forward, diff);
-        var angle = Vector3.Angle(transform.forward, diff);
-        var ship_direction = angle * axis;
+        public float angle;
+        public float axis;
+        public Transform[] sorted = new Transform[0];
+        GameObject Goal;
+        bool isSort = false;        
+        private int i;
+        private float Cpu_Speed;
+        private float Cpu_Rotate;
+        void Start()
+        {
+            Goal = GameObject.FindGameObjectWithTag("GoalNavPoint");
+           // InCheck = false;
+            i = 0;
+            Cpu_Speed = 0.05f;//テスト的に設定　プレイヤーに合わせて変える必要あり
+            Cpu_Rotate = 0.5f;//テスト的に設定　プレイヤーに合わせて変える必要あり
+                              //Invoke("NextMarkerSet", 10.0f);
+        }
 
-        this.gameObject.transform.Translate(0, 0, Cpu_Speed);
-        if (ship_direction.y < -2f)//船が右にいる
+        void Update()
         {
-            this.gameObject.transform.Rotate(0, -Cpu_Rotate, 0);
-        }
-        else if (ship_direction.y > 2f)//船が左にいる
-        {
-            this.gameObject.transform.Rotate(0, Cpu_Rotate, 0);
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {        
-        if(other.tag == "EnterMarker")
-        {
-            nextMarker = serchTag(gameObject, "OutMarker");
-        }
-        else if(other.tag == "OutMarker") {
-            if (GameObject.FindWithTag("EnterMarker") == true)
+            if (!isSort)
             {
-                nextMarker = serchTag(gameObject, "EnterMarker");
+                Transform[] nextMarker = GameObject.FindGameObjectsWithTag("NavPoint").Select(marker => marker.transform).ToArray();
+                sorted = nextMarker.OrderBy(e => Vector3.Distance(e.transform.position, transform.position)).ToArray();
+                isSort = true;
+
+            }
+            if (i == sorted.Length)
+            {
+                var diff = Goal.transform.position - this.gameObject.transform.position; //CPUとブイ距離を判定
+
+                var axis = Vector3.Cross(transform.forward, diff);
+                var angle = Vector3.Angle(transform.forward, diff);
+                var ship_direction = angle * axis; //ブイに対してCPUがどの角度にいるのかを、左右判定できるように180から-180に調整
+
+                this.gameObject.transform.Translate(0, 0, Cpu_Speed);
+                if (ship_direction.y < -2f)//船が右にいる
+                {
+                    this.gameObject.transform.Rotate(0, -Cpu_Rotate, 0);
+                }
+                else if (ship_direction.y > 2f)//船が左にいる
+                {
+                    this.gameObject.transform.Rotate(0, Cpu_Rotate, 0);
+                }
             }
             else
             {
-                nextMarker = serchTag(gameObject, "GoalMarker");
-            }
-        }
-        other.tag = "Passing";
-     }
-     
-   
-    //マーカーの中で最も近いものを取得
-    GameObject serchTag(GameObject nowObj, string tagName)
-    {
-        float tmpDis = 0;       
-        float nearDis = 0;        
-        GameObject targetObj = null;
-        foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName))
-        {
-            tmpDis = Vector3.Distance(obs.transform.position, nowObj.transform.position);
+                var diff = sorted[i].transform.position - this.gameObject.transform.position; //CPUとブイ距離を判定
 
-            if (nearDis == 0 || nearDis > tmpDis)
-            {
-                nearDis = tmpDis;
-                targetObj = obs;
+                var axis = Vector3.Cross(transform.forward, diff);
+                var angle = Vector3.Angle(transform.forward, diff);
+                var ship_direction = angle * axis; //ブイに対してCPUがどの角度にいるのかを、左右判定できるように180から-180に調整
+
+                this.gameObject.transform.Translate(0, 0, Cpu_Speed);
+                if (ship_direction.y < -2f)//船が右にいる
+                {
+                    this.gameObject.transform.Rotate(0, -Cpu_Rotate, 0);
+                }
+                else if (ship_direction.y > 2f)//船が左にいる
+                {
+                    this.gameObject.transform.Rotate(0, Cpu_Rotate, 0);
+                }
             }
         }
-        return targetObj;
+
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (i<sorted.Length)
+            {
+                i++;
+            }          
+        }
     }
 }
+
+
 
