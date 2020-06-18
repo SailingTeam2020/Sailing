@@ -11,6 +11,22 @@ namespace Sailing
         [SerializeField]
         private CourseData courseData = null; // 読み込むコースデータ
 
+       public void TutorialSceneSeitch()
+       {
+            if (!courseData)
+            {
+                courseData = (CourseData)Resources.Load("Scriptable/TutorialPlayData");
+            }
+
+            PlayCorseData.CourseData = courseData;
+
+            //PhotonNetwork.OfflineMode = true;
+            //PhotonNetwork.JoinRoom("Offline Room");
+            Debug.Log("チュートリアル開始");
+            FadeManager.FadeOut(SceneNameString.InTutorial);
+        }
+
+
         public void OfflineSceneSwitch()
         {
 

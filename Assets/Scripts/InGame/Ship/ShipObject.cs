@@ -4,6 +4,8 @@
 using UnityEngine;
 using Photon.Pun;
 using Sailing.SingletonObject;
+using System.Text;
+using UnityEngine.UI;
 
 namespace Sailing
 {
@@ -13,13 +15,23 @@ namespace Sailing
 
         private PhotonView photonView;
         private CourseManager courseManager;
-
+        private GameObject Concentratobj;
+        private GameObject Splashesobj;
+        private GameObject Concentrat;
+        private GameObject Splashes;
+        public GameObject Player;
         public bool IsMove {
             get;
             private set;
         }
 
         public bool IsRotate {
+            get;
+            private set;
+        }
+
+        public bool IsHint
+        {
             get;
             private set;
         }
@@ -54,15 +66,24 @@ namespace Sailing
             set;
         }
 
+        public float HintEnableTime
+        {
+            get;
+            private set;
+        }
+
         private void Awake()
         {
 
             photonView = PhotonView.Get(this);
-            
+
+            IsHint = true;
             IsMove = false;
             IsRotate = false;
             IsGoal = false;
+            PassEnterMaker = false;
             NextMakerNumber = 1;
+            HintEnableTime = 10.0f;
 
             if (photonView.IsMine)
             {
@@ -77,6 +98,15 @@ namespace Sailing
                 child.GetComponent<Camera>().cullingMask = ~(1 << 8);
                 child.transform.position = gameObject.transform.position + new Vector3(0.0f, 4.0f, -10.0f);
                 child.transform.LookAt(gameObject.transform);
+
+                Concentrat = (GameObject)Resources.Load("ConcentratObject");
+                Splashes = (GameObject)Resources.Load("SplashesEffect");
+                Player = GameObject.Find("Ship");
+                Concentratobj = Instantiate(Concentrat, this.transform.position, Quaternion.identity);
+                Splashesobj = Instantiate(Splashes, this.transform.position, Quaternion.identity);
+                Concentratobj.transform.SetParent(Player.transform, true);
+                Splashesobj.transform.SetParent(Player.transform, true);
+                Splashesobj.transform.rotation = Quaternion.Euler(0, 180, 0);
             }
             else
             {
@@ -100,6 +130,8 @@ namespace Sailing
         private void FixedUpdate()
         {
 
+            HintEnableTime -= Time.deltaTime;
+
             if (!photonView.IsMine)
             {
                 return;
@@ -110,9 +142,16 @@ namespace Sailing
                 ShipMove.Move(courseManager.WindManager.GetInfluence(transform));
             }
 
+
             if (IsRotate)
             {
                 ShipController.Rotate();
+            }
+
+            if(HintEnableTime <= 0.0f && !IsGoal)
+            {
+                IsHint = true;
+                HintEnableTime = 10.0f;
             }
 
         }
@@ -140,13 +179,14 @@ namespace Sailing
                 {
                     return;
                 }
-
+                IsHint = false;
                 PassEnterMaker = true;
                 SoundManager.Instance.PlaySE("Makerstart");
 
                 return;
+
             }
-            
+
             if (collision.tag == "Out" && PassEnterMaker)
             {
 
@@ -154,17 +194,19 @@ namespace Sailing
                 {
                     return;
                 }
-
+                IsHint = false;
                 NextMakerNumber++;
                 PassEnterMaker = false;
                 SoundManager.Instance.PlaySE("Makerend");
 
                 return;
+
             }
             
             if (collision.tag == "Finish")
             {
 
+                IsHint = false;
                 if (!courseManager.MakerManager.PassMaker(NextMakerNumber, hitMaker))
                 {
                     return;
@@ -197,6 +239,13 @@ namespace Sailing
 
             IsMove = false;
 
+        }
+
+        public bool HintEnable(bool HintFlg)
+        {
+            HintFlg = IsHint;
+
+            return HintFlg;
         }
 
     }

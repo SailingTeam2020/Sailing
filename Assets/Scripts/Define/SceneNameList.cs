@@ -25,7 +25,8 @@
 		public const string Title = "Title";
 		public const string MainMenu = "MainMenu";
 		public const string InGame = "InGame";
-		public const string UserRanking = "UserRanking";
+        public const string InTutorial = "InTutorial";
+        public const string UserRanking = "UserRanking";
 		public const string Lobby = "Lobby";
 		public const string MatchingRoom = "MatchingRoom";
 
