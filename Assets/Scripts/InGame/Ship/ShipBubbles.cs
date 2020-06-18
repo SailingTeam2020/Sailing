@@ -12,8 +12,13 @@ namespace Sailing.Online
         ParticleSystem.EmissionModule EmObj3;
 
         private ShipMove shipMove;
+        private CpushipMove CpushipMove;
         private float speed;
-
+        public GameObject root;
+        GameObject Ship;
+        GameObject CPUship;
+        bool flg;
+        string player;
         void Start()
         {
             //"Particle1"オブジェクトから ParticleSystemコンポーネントを取得 
@@ -26,25 +31,54 @@ namespace Sailing.Online
             EmObj3 = ParticleObj3.emission;
 
             shipMove = GameObject.Find("Ship").GetComponent<ShipMove>();
+            CpushipMove = GameObject.Find("CPUShip").GetComponent<CpushipMove>();
+            Ship = GameObject.Find("Ship");
+            CPUship = GameObject.Find("CPUShip");
             speed = 0;
-        }
+            root = transform.root.gameObject;
+            player = "Ship";
+            if (root == Ship)
+            {
+                //  speed = shipMove.MoveSpeed;
+                flg = true;
 
+            }
+
+            if (root == CPUship)
+            {
+                // speed = CpushipMove.Cpu_Speed;
+                flg = false;
+            }
+            Debug.Log("root" + root);
+            Debug.Log("GameObject" + shipMove);
+            Debug.Log("Flg " + flg);
+
+        }
 
 
         private float mCount = 0;       //←時間計測用
         void Update()
         {
-
-            speed = shipMove.MoveSpeed;
+            if (flg == false)
+            {
+                speed = CpushipMove.Cpu_Speed;
+                Debug.Log("speed" + root + " " + speed);
+            }
+            else
+            {
+                speed = shipMove.MoveSpeed;
+                Debug.Log("speed" + root + " " + speed);
+            }
             mCount = mCount + Time.deltaTime;   //←時間計測中
             if (mCount >= 1.0f)
             { //経過する度に if 成立
                 mCount = 0; // 時間計測用変数を初期化
                             //スピードに対してN個放出する
-                    EmObj1.rateOverTime = new ParticleSystem.MinMaxCurve(speed);
-                    EmObj2.rateOverTime = new ParticleSystem.MinMaxCurve(speed);
-                    EmObj3.rateOverTime = new ParticleSystem.MinMaxCurve(speed);
+                EmObj1.rateOverTime = new ParticleSystem.MinMaxCurve(speed);
+                EmObj2.rateOverTime = new ParticleSystem.MinMaxCurve(speed);
+                EmObj3.rateOverTime = new ParticleSystem.MinMaxCurve(speed);
             }
+
         }
     }
 }
