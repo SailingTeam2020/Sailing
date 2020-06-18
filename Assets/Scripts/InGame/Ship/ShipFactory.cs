@@ -8,6 +8,7 @@ namespace Sailing
     {
 
         private const string ShipPrefabName = "Ship";
+        private const string CPUShipPrefabName = "CPUShip";
 
         public GameObject Create()
         {
@@ -19,6 +20,8 @@ namespace Sailing
 
             GameObject obj = PhotonNetwork.Instantiate(ShipPrefabName, vec, Quaternion.identity) as GameObject;
             obj.name = "Ship";
+            GameObject obj2 = PhotonNetwork.Instantiate(CPUShipPrefabName, vec, Quaternion.identity) as GameObject;
+            obj2.name = "CPUShip";
 
             if (!obj)
             {
@@ -27,6 +30,7 @@ namespace Sailing
             }
 
             obj.AddComponent<ShipObject>();
+            obj2.AddComponent<CPUShipObject>();
 
             return obj;
 
