@@ -9,18 +9,24 @@ namespace Sailing
 {
     public class CpushipMove : MonoBehaviour
     {
+        //public MakerManager maker;
 
         public float angle;
         public float axis;
         public Transform[] sorted = new Transform[0];
-        GameObject Goal;
+        Vector3 Goal;
+        //GameObject Goal;
         bool isSort = false;        
         private int i;
-        private float Cpu_Speed;
+        public float Cpu_Speed;
         private float Cpu_Rotate;
         void Start()
         {
-            Goal = GameObject.FindGameObjectWithTag("GoalNavPoint");
+            //仮
+            //maker = gameObject.GetComponent<MakerManager>();
+
+
+            Goal = GameObject.FindGameObjectWithTag("GoalNavPoint").transform.position;
            // InCheck = false;
             i = 0;
             Cpu_Speed = 0.05f;//テスト的に設定　プレイヤーに合わせて変える必要あり
@@ -39,7 +45,13 @@ namespace Sailing
             }
             if (i == sorted.Length)
             {
-                var diff = Goal.transform.position - this.gameObject.transform.position; //CPUとブイ距離を判定
+
+                Debug.Log("ゴールポジ");
+                Debug.Log(Goal);
+                Debug.Log("CPUポジ");
+                Debug.Log(this.gameObject.transform.position);
+                var diff = Goal- this.gameObject.transform.position; //CPUとブイ距離を判定
+                //var diff = Goal.transform.position - this.gameObject.transform.position; //CPUとブイ距離を判定
 
                 var axis = Vector3.Cross(transform.forward, diff);
                 var angle = Vector3.Angle(transform.forward, diff);
