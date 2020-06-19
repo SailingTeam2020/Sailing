@@ -8,7 +8,7 @@ namespace Sailing
     {
 
         private const string ShipPrefabName = "Ship";
-        private const string CPUShipPrefabName = "CPUShip";
+        private const string CPUShipPrefabName = "CpuShip";
 
         public GameObject Create()
         {
@@ -20,9 +20,9 @@ namespace Sailing
 
             GameObject obj = PhotonNetwork.Instantiate(ShipPrefabName, vec, Quaternion.identity) as GameObject;
             obj.name = "Ship";
-            GameObject obj2 = PhotonNetwork.Instantiate(CPUShipPrefabName, vec, Quaternion.identity) as GameObject;
+            /*GameObject obj2 = PhotonNetwork.Instantiate(CPUShipPrefabName, vec, Quaternion.identity) as GameObject;
             obj2.name = "CPUShip";
-
+            */
             if (!obj)
             {
                 Debug.Log("Playerの生成に失敗しました");
@@ -30,7 +30,14 @@ namespace Sailing
             }
 
             obj.AddComponent<ShipObject>();
+
+            /*if (!obj2)
+            {
+                Debug.Log("CPUの生成に失敗しました");
+                return null;
+            }
             obj2.AddComponent<CPUShipObject>();
+            */
 
             return obj;
 
