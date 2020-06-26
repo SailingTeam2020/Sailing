@@ -19,7 +19,7 @@ namespace Sailing.Online
 
         [SerializeField]
         [Range(1, 8)]
-        private byte startRequiredPlayerPeople = 2;
+        private byte startRequiredPlayerPeople = 1;
         [SerializeField]
         private Text playerCountText;
         [SerializeField]
@@ -31,7 +31,7 @@ namespace Sailing.Online
         [SerializeField]
         private CourseData courseData = null; // 読み込むコースデータ
 
-        private const byte canStartPlayerCount = 2;
+        private const byte canStartPlayerCount = 1;
 
         private MatchingCountdown countTimer;
         private bool isLimitTimeOver;

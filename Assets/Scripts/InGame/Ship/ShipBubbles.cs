@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Sailing.Online
 {
@@ -18,7 +19,7 @@ namespace Sailing.Online
         GameObject Ship;
         GameObject CPUship;
         bool flg;
-        string player;
+       // string player;
         void Start()
         {
             //"Particle1"オブジェクトから ParticleSystemコンポーネントを取得 
@@ -31,12 +32,15 @@ namespace Sailing.Online
             EmObj3 = ParticleObj3.emission;
 
             shipMove = GameObject.Find("Ship").GetComponent<ShipMove>();
-            CpushipMove = GameObject.Find("CPUShip").GetComponent<CpushipMove>();
-            Ship = GameObject.Find("Ship");
-            CPUship = GameObject.Find("CPUShip");
+             Ship = GameObject.Find("Ship");
+            if (SceneManager.GetActiveScene().name == "InGame")
+            {
+                CpushipMove = GameObject.Find("CPUShip").GetComponent<CpushipMove>();
+                CPUship = GameObject.Find("CPUShip");
+            }
             speed = 0;
             root = transform.root.gameObject;
-            player = "Ship";
+            //player = "Ship";
             if (root == Ship)
             {
                 //  speed = shipMove.MoveSpeed;
@@ -62,12 +66,12 @@ namespace Sailing.Online
             if (flg == false)
             {
                 speed = CpushipMove.Cpu_Speed;
-                Debug.Log("speed" + root + " " + speed);
+             //   Debug.Log("speed" + root + " " + speed);
             }
             else
             {
                 speed = shipMove.MoveSpeed;
-                Debug.Log("speed" + root + " " + speed);
+            //    Debug.Log("speed" + root + " " + speed);
             }
             mCount = mCount + Time.deltaTime;   //←時間計測中
             if (mCount >= 1.0f)

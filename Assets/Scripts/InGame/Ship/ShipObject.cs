@@ -24,6 +24,11 @@ namespace Sailing
             get;
             private set;
         }
+        public bool IsCPUMove
+        {
+            get;
+            private set;
+        }
 
         public bool IsRotate {
             get;
@@ -79,6 +84,7 @@ namespace Sailing
 
             IsHint = true;
             IsMove = false;
+            IsCPUMove = false;
             IsRotate = false;
             IsGoal = false;
             PassEnterMaker = false;
@@ -226,12 +232,12 @@ namespace Sailing
             
         }
 
-        public void ChangeShipControlFlag(bool isMove,bool isRotate)
+        public void ChangeShipControlFlag(bool isMove,bool isRotate,bool isCPUMove)
         {
 
             IsMove = isMove;
             IsRotate = isRotate;
-
+            IsCPUMove = isCPUMove;
         }
 
         public void GoalShipMoveStop()

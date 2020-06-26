@@ -9,27 +9,46 @@ namespace Sailing
 {
     public class CpushipMove : MonoBehaviour
     {
-
         public float angle;
         public float axis;
         public Transform[] sorted = new Transform[0];
         GameObject Goal;
         bool isSort = false;        
         private int i;
-        private float Cpu_Speed;
+        public  float Cpu_Speed;
         private float Cpu_Rotate;
+        GameObject obj;
+        public bool Cpu_Move
+        {
+            get;
+            private set;
+        }
+        public ShipObject CPUShipMove
+        {
+            get;
+            private set;
+        }
+
+        public CPUShipObject CPUShipObject;
         void Start()
         {
             Goal = GameObject.FindGameObjectWithTag("GoalNavPoint");
-           // InCheck = false;
+            Debug.Log("ゴール " + Goal);
+            // InCheck = false;
             i = 0;
-            Cpu_Speed = 0.05f;//テスト的に設定　プレイヤーに合わせて変える必要あり
+            Cpu_Speed = 0; //0.05f;//テスト的に設定　プレイヤーに合わせて変える必要あり
             Cpu_Rotate = 0.5f;//テスト的に設定　プレイヤーに合わせて変える必要あり
                               //Invoke("NextMarkerSet", 10.0f);
-        }
+            Cpu_Move = false;//動けるかどうかのフラグ
+            obj = GameObject.Find("Ship");//ShipObject内のIsCPUMoveを呼び出す
+            CPUShipMove = obj.GetComponent<ShipObject>();
+       }
 
         void Update()
         {
+            //フラグがtrueになるまで呼び出す
+            if (Cpu_Move == true)  Cpu_Speed = 0.1f;
+            else  Cpu_Move = CPUShipMove.IsCPUMove;
             if (!isSort)
             {
                 Transform[] nextMarker = GameObject.FindGameObjectsWithTag("NavPoint").Select(marker => marker.transform).ToArray();
