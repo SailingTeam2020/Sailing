@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Sailing
 {
@@ -8,7 +9,7 @@ namespace Sailing
     {
 
         private const string ShipPrefabName = "Ship";
-        private const string CPUShipPrefabName = "CpuShip";
+        private const string CPUShipPrefabName = "CPUShip";
 
         public GameObject Create()
         {
@@ -21,10 +22,6 @@ namespace Sailing
             GameObject obj = PhotonNetwork.Instantiate(ShipPrefabName, vec, Quaternion.identity) as GameObject;
             obj.name = "Ship";
 
-            GameObject obj2 = PhotonNetwork.Instantiate(CPUShipPrefabName, vec, Quaternion.identity) as GameObject;
-            obj2.name = "CPUShip";
-
-            
             if (!obj)
             {
                 Debug.Log("Playerの生成に失敗しました");
@@ -33,13 +30,29 @@ namespace Sailing
 
             obj.AddComponent<ShipObject>();
 
-            if (!obj2)
+            int CPUFactory = 8;//オンライン時最大6船(プレイヤー2人+CPU6船)/オフライン時固定3船(プレイヤー1人+CPU3船)
+            float CPUx = x;
+            float CPUz = 0;
+            if (SceneManager.GetActiveScene().name == "InGame")
             {
-                Debug.Log("CPUの生成に失敗しました");
-                return null;
+                if (PhotonNetwork.LocalPlayer.ActorNumber == 1) CPUFactory = 3;
+                else CPUFactory = CPUFactory - PhotonNetwork.LocalPlayer.ActorNumber;
+                for (int i = 0; i < CPUFactory; i++)
+                {
+                    CPUx += 6;//CPU生成時のX座標を6ずつずらす
+                    CPUz += 5;
+                    Vector3 CPUvec = new Vector3(CPUx + start.x, start.y, start.z + CPUz);
+                    GameObject CPUobj = PhotonNetwork.Instantiate(CPUShipPrefabName, CPUvec, Quaternion.identity) as GameObject;
+                    CPUobj.name = "CPUShip";
+                    CPUobj.AddComponent<CPUShipObject>();
+                    if (!CPUobj)
+                    {
+                        Debug.Log("CPU_" + i + "の生成に失敗しました");
+                        return null;
+                    }
+
+                }
             }
-            obj2.AddComponent<CPUShipObject>();
-            
 
             return obj;
 
