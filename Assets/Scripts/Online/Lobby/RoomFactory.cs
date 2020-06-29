@@ -1,6 +1,7 @@
 ﻿/*
  * 
  * 長嶋
+ * 2020/06/26 小林更新
  * 
  */
 
@@ -78,15 +79,6 @@ namespace Sailing.Online
             };
 
             return option;
-        }
-
-        public string RoomIDReturn()
-        {
-            string RID;
-
-            RID = roomID;
-
-            return RID;
         }
 
     }
