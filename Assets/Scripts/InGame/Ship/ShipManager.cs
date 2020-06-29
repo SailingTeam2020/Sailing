@@ -22,6 +22,17 @@ namespace Sailing
             get;
             private set;
         }
+        public CPUShipObject CPUShipObject
+        {
+            get;
+            private set;
+        }
+
+        public CpushipMove cpushipMove
+        {
+            get;
+            private set;
+        }
 
         public List<GameObject> ShipObjectList {
             get;
@@ -30,12 +41,11 @@ namespace Sailing
 
         private void Awake()
         {
-            
+
             photonView = PhotonView.Get(this);
 
             ShipObjectList = new List<GameObject>();
             GameObject obj = gameObject.AddComponent<ShipFactory>().Create();
-
             MainShipObject = obj.GetComponent<ShipObject>();
             MainShipObject.GameTimer = gameTimer;
             isShipStart = false;
@@ -73,7 +83,7 @@ namespace Sailing
         private void ShipStart()
         {
 
-            MainShipObject.ChangeShipControlFlag(true, true);
+            MainShipObject.ChangeShipControlFlag(true, true,true);
             Debug.Log("レースが始まりました");
 
         }

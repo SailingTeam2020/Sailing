@@ -17,9 +17,14 @@ namespace Sailing
         private GameObject Splashesobj2;
         private GameObject Splashes2;
         public GameObject Player2;
+        public bool Cpu_Moves;
 
-
-       private void Awake()
+        public CpushipMove Cpu_Move
+        {
+            get;
+            private set;
+        }
+        private void Awake()
         {
 
             photonView2 = PhotonView.Get(this);
@@ -40,12 +45,7 @@ namespace Sailing
             {
                 gameObject.tag = "Opponent";
             }
-
         }
-
-
-        }
-
 
     }
-
+}
