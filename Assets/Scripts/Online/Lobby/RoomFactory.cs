@@ -14,6 +14,12 @@ namespace Sailing.Online
     public class RoomFactory : BaseNetworkObject
     {
 
+        public string roomID
+        {
+            get;
+            private set;
+        }
+
         //ルームID生成用
         private const string StrListNumber = "0123456789";
 
@@ -48,7 +54,7 @@ namespace Sailing.Online
             }
 
             //charをstringに変換させる
-            string roomID = new string(id);
+            roomID = new string(id);
 
             Debug.Log("ルームID:" + roomID);
 
@@ -72,6 +78,15 @@ namespace Sailing.Online
             };
 
             return option;
+        }
+
+        public string RoomIDReturn()
+        {
+            string RID;
+
+            RID = roomID;
+
+            return RID;
         }
 
     }

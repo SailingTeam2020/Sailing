@@ -21,7 +21,7 @@ namespace Sailing.Online
         [SerializeField]
         private Text inRoomIDText;
 
-        private const string DefaultPlayerName = "ゲストさん";
+        private const string DefaultPlayerName = "ゲスト";
 
         private void Start()
         {
