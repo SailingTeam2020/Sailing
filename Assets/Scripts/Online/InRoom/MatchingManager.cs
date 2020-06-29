@@ -1,5 +1,7 @@
 ﻿/*
  * 長嶋
+ * 
+ * 2020/06/11 小林更新
  */
 
 using System.Collections.Generic;
@@ -36,11 +38,20 @@ namespace Sailing.Online
         private MatchingCountdown countTimer;
         private bool isLimitTimeOver;
 
+        public Player[] kickPlayer = new Player[7];
+
+        public int i
+        {
+            get;
+            private set;
+        }
+
         private void Awake()
         {
-
+            i = 0;
             //メッセージ処理の実行を再開する
             PhotonNetwork.IsMessageQueueRunning = true;
+            
 
             if (!PhotonNetwork.IsConnected || !PhotonNetwork.InRoom)
             {
@@ -189,6 +200,15 @@ namespace Sailing.Online
 
         }
 
+        public Player[] ReturnKickPlayer()
+        {
+            Player[] playerData;
+
+            playerData = kickPlayer;
+
+            return playerData;
+        }
+
         #region PhotonCallback
 
         /// <summary>
@@ -198,7 +218,8 @@ namespace Sailing.Online
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             base.OnPlayerEnteredRoom(newPlayer);
-
+            kickPlayer[i] = newPlayer;
+            i++;
             UpdateMatchingPlayer();
 
         }
