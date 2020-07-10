@@ -10,6 +10,13 @@ using Photon.Pun.UtilityScripts;
 public class PlayerKick : MonoBehaviour
 {
 
+    [SerializeField]
+    GameObject kickMenu;
+    [SerializeField]
+    GameObject kickButton;
+    [SerializeField]
+    GameObject roomOutButton;
+
     Player[] kickPlayer = new Player[7];
 
     private void Awake()
@@ -27,6 +34,9 @@ public class PlayerKick : MonoBehaviour
 
     public void OnClick()
     {
+        kickButton.SetActive(true);
+        roomOutButton.SetActive(true);
+        kickMenu.SetActive(false);
         if (PhotonNetwork.IsMasterClient)
         {
             for (int i = 0; i < 7; i++)

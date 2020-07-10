@@ -1,6 +1,7 @@
 ﻿/*
  * 
  * 長嶋
+ * 2020/06/26 小林更新
  * 
  */
 
@@ -13,6 +14,12 @@ namespace Sailing.Online
 
     public class RoomFactory : BaseNetworkObject
     {
+
+        public string roomID
+        {
+            get;
+            private set;
+        }
 
         //ルームID生成用
         private const string StrListNumber = "0123456789";
@@ -48,7 +55,7 @@ namespace Sailing.Online
             }
 
             //charをstringに変換させる
-            string roomID = new string(id);
+            roomID = new string(id);
 
             Debug.Log("ルームID:" + roomID);
 

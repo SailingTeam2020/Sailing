@@ -10,7 +10,6 @@ namespace Sailing
 
         private const string ShipPrefabName = "Ship";
         private const string CPUShipPrefabName = "CPUShip";
-
         public GameObject Create()
         {
 
@@ -30,7 +29,7 @@ namespace Sailing
 
             obj.AddComponent<ShipObject>();
 
-            int CPUFactory = 8;//オンライン時最大6船(プレイヤー2人+CPU6船)/オフライン時固定3船(プレイヤー1人+CPU3船)
+            int  CPUFactory = 8;//オンライン時最大6船(プレイヤー2人+CPU6船)/オフライン時固定3船(プレイヤー1人+CPU3船)
             float CPUx = x;
             float CPUz = 0;
             if (SceneManager.GetActiveScene().name == "InGame")

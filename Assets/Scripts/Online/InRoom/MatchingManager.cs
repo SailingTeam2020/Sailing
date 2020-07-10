@@ -75,6 +75,7 @@ namespace Sailing.Online
 
             countTimer.Initialized();
             UpdateMatchingPlayer();
+            FindObjectOfType<Sailing.Online.RoomIDUI>().OnJoinedRoom();
 
         }
 
@@ -91,7 +92,7 @@ namespace Sailing.Online
                 isLimitTimeOver = true;
                 countTimer.IsTimeCount = false;
 
-                //ルーム内の人数がが指定数に満たない場合、部屋から退室する
+                //ルーム内の人数が指定数に満たない場合、部屋から退室する
                 if (PhotonNetwork.CurrentRoom.PlayerCount < canStartPlayerCount)
                 {
                     PhotonNetwork.LeaveRoom();
@@ -200,6 +201,11 @@ namespace Sailing.Online
 
         }
 
+
+        /// <summary>
+        /// キックするプレイヤー情報を渡す
+        /// </summary>
+        /// <returns></returns>
         public Player[] ReturnKickPlayer()
         {
             Player[] playerData;
@@ -241,7 +247,9 @@ namespace Sailing.Online
         /// </summary>
         public override void OnLeftRoom()
         {
+            base.Disconnect();
             base.OnLeftRoom();
+            //base.OnDisconnectedFromPhoton();
 
             //シーンを移動させる
             SceneSwitch(SceneNameString.Lobby);
