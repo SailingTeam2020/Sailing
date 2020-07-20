@@ -63,7 +63,7 @@ namespace Sailing.Online
         private float mCount = 0;       //←時間計測用
         void Update()
         {
-            /*if (flg == false)
+            if (flg == false)
             {
                 speed = CpushipMove.Cpu_Speed;
              //   Debug.Log("speed" + root + " " + speed);
@@ -82,7 +82,7 @@ namespace Sailing.Online
                 EmObj2.rateOverTime = new ParticleSystem.MinMaxCurve(speed);
                 EmObj3.rateOverTime = new ParticleSystem.MinMaxCurve(speed);
             }
-            */
+            
         }
     }
 }
