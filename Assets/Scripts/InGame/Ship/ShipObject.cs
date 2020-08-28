@@ -6,6 +6,7 @@ using Photon.Pun;
 using Sailing.SingletonObject;
 using System.Text;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace Sailing
 {
@@ -19,6 +20,8 @@ namespace Sailing
         private GameObject Splashesobj;
         private GameObject Concentrat;
         private GameObject Splashes;
+        private GameObject Afterimage;
+        private GameObject Afterimageobj;
         public GameObject Player;
         public bool IsMove {
             get;
@@ -105,13 +108,25 @@ namespace Sailing
                 child.transform.position = gameObject.transform.position + new Vector3(0.0f, 4.0f, -10.0f);
                 child.transform.LookAt(gameObject.transform);
 
-                Concentrat = (GameObject)Resources.Load("ConcentratObject");
-                Splashes = (GameObject)Resources.Load("SplashesEffect");
+                child.AddComponent<PostProcessLayer>();//shipにPostProcessLayerを追加する
+                child.GetComponent<PostProcessLayer>().volumeLayer = 1<<9;//9番レイヤーのみ指定
+                child.GetComponent<PostProcessLayer>().volumeTrigger = child.gameObject.transform;//TargetをGameViewCameraに指定
+                
+                //child = (GameObject)Resources.Load("ChangeCameraAngle");//カメラ角度移動
+
+                Concentrat = (GameObject)Resources.Load("ConcentratObject");  //集中線
+                Splashes = (GameObject)Resources.Load("SplashesEffect");      //水しぶき
+                Afterimage = (GameObject)Resources.Load("ShipAfterimage");//残像
                 Player = GameObject.Find("Ship");
+                Debug.Log("オブジェクト　", Afterimage);
                 Concentratobj = Instantiate(Concentrat, this.transform.position, Quaternion.identity);
                 Splashesobj = Instantiate(Splashes, this.transform.position, Quaternion.identity);
-                Concentratobj.transform.SetParent(Player.transform, true);
+                Afterimageobj = Instantiate(Afterimage, new Vector3(3.0f, 0.0f, 0.0f), Quaternion.identity);
+
+                Concentratobj.transform.SetParent(child.transform, true);
                 Splashesobj.transform.SetParent(Player.transform, true);
+                Afterimageobj.transform.SetParent(Player.transform, true);
+
                 Splashesobj.transform.rotation = Quaternion.Euler(0, 180, 0);
             }
             else
