@@ -83,25 +83,26 @@ namespace Sailing
 
 		void Update()
 		{
-
-			windInfluence = shipManager.MainShipObject.ShipMove.WindInfluence * 100;
+            //速度メーターの値
+            // WindInfluence.UI 内の windSlider.value に値を代入
+            windInfluence = shipManager.MainShipObject.ShipMove.WindInfluence * 100;
 
 			//0 ~45
-			if (windInfluence <= 15.0f)
+			if (windInfluence <= 25.0f)
 			{
 				condition.ChangeState(JudgeState.Condition.Poor);
 			}
 			//80 ~100
-			else if (25 < windInfluence && windInfluence <= 50)
+			else if (40 < windInfluence && windInfluence <= 65)
 			{
 				condition.ChangeState(JudgeState.Condition.Good);
 			}
 			//165 ~180
-			else if (50 < windInfluence && windInfluence <= 85)
+			else if (65 < windInfluence && windInfluence <= 95)
 			{
 				condition.ChangeState(JudgeState.Condition.Great);
 			}
-			else if (85 < windInfluence)
+			else if (95 < windInfluence)
 			{
 				condition.ChangeState(JudgeState.Condition.Excellent);
 			}
