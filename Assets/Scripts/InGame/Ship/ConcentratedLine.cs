@@ -27,7 +27,7 @@ namespace Sailing.Online
         {
             speed = shipMove.MoveSpeed;
             transform.position = Player.transform.position + offset;
-            transform.rotation = Player.transform.rotation;
+            //transform.rotation = Player.transform.rotation;
              //船のスピードに応じて切り替える
             if (speed >= 18)
             {
