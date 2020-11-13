@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: dde37eff0f7685f41902f400d1de0c6c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _viewpoint: {instanceID: 0}
+  - _timeProvider: {instanceID: 0}
+  - _material: {fileID: 2100000, guid: ef94c26e44a36e24a9dcbc5995a2bed1, type: 2}
+  - _simSettingsAnimatedWaves: {instanceID: 0}
+  - _simSettingsFoam: {instanceID: 0}
+  - _simSettingsDynamicWaves: {instanceID: 0}
+  - _simSettingsFlow: {instanceID: 0}
+  - _primaryLight: {instanceID: 0}
+  - _simSettingsShadow: {instanceID: 0}
+  - _lodTransform: {instanceID: 0}
+  - _lodDataAnimWaves: {instanceID: 0}
+  - _lodDataSeaDepths: {instanceID: 0}
+  - _lodDataClipSurface: {instanceID: 0}
+  - _lodDataDynWaves: {instanceID: 0}
+  - _lodDataFlow: {instanceID: 0}
+  - _lodDataFoam: {instanceID: 0}
+  - _lodDataShadow: {instanceID: 0}
+  executionOrder: -100
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
