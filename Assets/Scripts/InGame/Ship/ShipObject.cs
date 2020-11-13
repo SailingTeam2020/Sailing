@@ -82,7 +82,7 @@ namespace Sailing
 
         private void Awake()
         {
-
+            //this.gameObject.AddComponent<BoatAlignNormal>();
             photonView = PhotonView.Get(this);
 
             IsHint = true;
