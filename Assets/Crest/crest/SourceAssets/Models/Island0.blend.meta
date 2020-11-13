@@ -3,25 +3,6 @@ guid: 79a1ae62de4952e45b93df4d3673ac21
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Grid
-    100002: //RootNode
-    100004: Mounts
-    100006: Plane.001
-    400000: Grid
-    400002: //RootNode
-    400004: Mounts
-    400006: Plane.001
-    2100000: No Name
-    2300000: Grid
-    2300002: Mounts
-    2300004: Plane.001
-    3300000: Grid
-    3300002: Mounts
-    3300004: Plane.001
-    4300000: Grid
-    4300002: Plane.001
-    4300004: Mounts
-    9500000: //RootNode
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
@@ -76,7 +57,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
