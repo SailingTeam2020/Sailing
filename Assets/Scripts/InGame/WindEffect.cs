@@ -11,6 +11,9 @@ public class WindEffect : MonoBehaviour
     [SerializeField]
     public GameObject WindEffectObject;
 
+    [SerializeField]
+    public int EffectMax;
+
     public Vector3 WindObjectPosition
     {
         get;
@@ -35,12 +38,6 @@ public class WindEffect : MonoBehaviour
         private set;
     }
 
-    public int EffectMax
-    {
-        get;
-        private set;
-    }
-
     public float GenerateTime
     {
         get;
@@ -60,7 +57,7 @@ public class WindEffect : MonoBehaviour
         WindDirection = 0.0f;
         MoveSpeed = 500.0f;
         EffectCount = 0;
-        EffectMax = 45;
+        //EffectMax = 25;
         GenerateTime = 3.0f;
         DestroyFlg = 0;
 
