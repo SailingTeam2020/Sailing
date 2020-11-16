@@ -12,14 +12,14 @@ public class BoatAlignNormal : FloatingObjectBase
     [Tooltip("Height offset from transform center to bottom of boat (if any)."), SerializeField]
     float _bottomH = 0f;
     [Tooltip("Strength of buoyancy force per meter of submersion in water."), SerializeField]
-    float _buoyancyCoeff = 1.5f;
+    float _buoyancyCoeff = 500.0f;
     [Tooltip("Strength of torque applied to match boat orientation to water normal."), SerializeField]
-    float _boyancyTorque = 8f;
+    float _boyancyTorque = 8.0f;
 
     [Header("Engine Power")]
     [Tooltip("Vertical offset for where engine force should be applied."), SerializeField]
-    float _forceHeightOffset = -0.3f;
-    [SerializeField] float _enginePower = 11f;
+    float _forceHeightOffset = 0.2f;
+    [SerializeField] float _enginePower = 3.0f;
     [SerializeField] float _turnPower = 1.3f;
 
     [Header("Wave Response")]
@@ -28,18 +28,18 @@ public class BoatAlignNormal : FloatingObjectBase
     public override float ObjectWidth { get { return _boatWidth; } }
 
     [SerializeField, Tooltip("Computes a separate normal based on boat length to get more accurate orientations, at the cost of an extra collision sample.")]
-    bool _useBoatLength = false;
+    bool _useBoatLength = true;
     [Tooltip("Length dimension of boat. Only used if Use Boat Length is enabled."), SerializeField]
-    float _boatLength = 3f;
+    float _boatLength = 12.0f;
 
     [Header("Drag")]
-    [SerializeField] float _dragInWaterUp = 3f;
+    [SerializeField] float _dragInWaterUp = 7f;
     [SerializeField] float _dragInWaterRight = 2f;
     [SerializeField] float _dragInWaterForward = 1f;
 
     [Header("Controls")]
     [SerializeField]
-    bool _playerControlled = true;
+    bool _playerControlled = false;
     [Tooltip("Used to automatically add throttle input"), SerializeField]
     float _throttleBias = 0f;
     [Tooltip("Used to automatically add turning input"), SerializeField]
