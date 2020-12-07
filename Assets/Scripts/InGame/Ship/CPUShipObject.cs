@@ -18,7 +18,6 @@ namespace Sailing
         private GameObject Splashes2;
         public GameObject Player2;
         public bool Cpu_Moves;
-
         public CpushipMove Cpu_Move
         {
             get;
@@ -37,15 +36,14 @@ namespace Sailing
 
                 Splashes2 = (GameObject)Resources.Load("SplashesEffect");
                 Player2 = GameObject.Find("CPUShip");
-                Splashesobj2 = Instantiate(Splashes2, this.transform.position, Quaternion.identity);
-                Splashesobj2.transform.SetParent(Player2.transform, true);
-                Splashesobj2.transform.rotation = Quaternion.Euler(0, 180, 0);
+                //Splashesobj2 = Instantiate(Splashes2, this.transform.position, Quaternion.identity);
+                //Splashesobj2.transform.SetParent(Player2.transform, true);
+                //Splashesobj2.transform.rotation = Quaternion.Euler(0, 180, 0);
             }
             else
             {
                 gameObject.tag = "Opponent";
             }
         }
-
     }
 }
