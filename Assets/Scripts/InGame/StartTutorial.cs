@@ -8,14 +8,15 @@ public class StartTutorial : MonoBehaviour
     void Start()
     {
         //Time.timeScale=0の場合停止する
-        if (Time.timeScale == 0)
+        /*if (Time.timeScale == 0)
         {
             Time.timeScale = 1;
         }
         else
         {
             Time.timeScale = 0;
-        }
+        }*/
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame

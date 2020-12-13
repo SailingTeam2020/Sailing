@@ -65,8 +65,13 @@ namespace Sailing
 
 		IEnumerator StartFanfare()
 		{
-                      
-            soundManager.PlaySE("Fanfare");
+
+			//soundManager.PlaySE("Null_SE");
+			//yield return new WaitUntil(() => !soundManager.CheckPlaySE());
+
+
+			soundManager.PlaySE("Fanfare");
+			//yield return new WaitForSeconds(1.0f);
 			yield return new WaitUntil(() => !soundManager.CheckPlaySE());
 
 			countdownUI.SetActive(true);

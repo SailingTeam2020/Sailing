@@ -49,21 +49,22 @@ namespace Sailing
                     Debug.Log(RandomList[s]);
                 }
              
-                for (int i = 0; i < MarkerNumberRandom; i++)
-            {
+                for (int i = 0; i < MarkerNumberRandom; i++) {
 
                 GameObject obj;
                 MakerNum++;
                 bool isGoal = false;
                 if(i == maxMakerNum - 1)
                 {
-                    obj = makerFactory.Create(true, makerList[RandomList[i]]);
+                    obj = makerFactory.Create(true, makerList[i]);
+                    //obj = makerFactory.Create(true, makerList[RandomList[i]]);
                     
                     isGoal = true;
                 }
                 else
                 {
-                    obj = makerFactory.Create(false, makerList[RandomList[i]]);
+                    obj = makerFactory.Create(false, makerList[i]);
+                    //obj = makerFactory.Create(false, makerList[RandomList[i]]);
                 }
 
                 MakerObject maker = obj.GetComponent<MakerObject>();
