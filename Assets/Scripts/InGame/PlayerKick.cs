@@ -16,12 +16,16 @@ public class PlayerKick : MonoBehaviour
     GameObject kickButton;
     [SerializeField]
     GameObject roomOutButton;
+    [SerializeField]
+    GameObject OnlineManager;
 
     Player[] kickPlayer = new Player[7];
 
+    string Player;
+
     private void Awake()
     {
-
+        Player = null;
         if (!PhotonNetwork.IsMasterClient)
         {
             this.gameObject.SetActive(false);
@@ -34,18 +38,36 @@ public class PlayerKick : MonoBehaviour
 
     public void OnClick()
     {
+        Player = FindObjectOfType<KickButton>().returnPlayer();
+        //Player = FindObjectOfType<KickButton>().returnPlayer();
+        Debug.Log(Player);
         kickButton.SetActive(true);
         roomOutButton.SetActive(true);
         kickMenu.SetActive(false);
-        if (PhotonNetwork.IsMasterClient)
+        if (Player == "Player2")
         {
-            for (int i = 0; i < 7; i++)
+            if (PhotonNetwork.IsMasterClient)
             {
-                if(kickPlayer[i] == null)
+                if (kickPlayer[0] == null)
                 {
                     return;
                 }
-                PhotonNetwork.CloseConnection(kickPlayer[i]);
+                PhotonNetwork.CloseConnection(kickPlayer[0]);
+                
+            }
+        }
+        else
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    if (kickPlayer[i] == null)
+                    {
+                        return;
+                    }
+                    PhotonNetwork.CloseConnection(kickPlayer[i]);
+                }
             }
         }
     }
