@@ -22,6 +22,8 @@ namespace Sailing
         private GameObject Splashes;
         private GameObject Afterimage;
         private GameObject Afterimageobj;
+        private GameObject ChangeCameraAngle;
+        private GameObject ChangeCameraAngleobj;
         public GameObject Player;
         public bool IsMove {
             get;
@@ -117,15 +119,18 @@ namespace Sailing
                 Concentrat = (GameObject)Resources.Load("ConcentratObject");  //集中線
                 Splashes = (GameObject)Resources.Load("SplashesEffect");      //水しぶき
                 Afterimage = (GameObject)Resources.Load("ShipAfterimage");//残像
+                ChangeCameraAngle = (GameObject)Resources.Load("ChangeCameraAngle");//残像
                 Player = GameObject.Find("Ship");
-                Debug.Log("オブジェクト　", Afterimage);
+                //Debug.Log("オブジェクト　", Afterimage);
                 Concentratobj = Instantiate(Concentrat, this.transform.position, Quaternion.identity);
                 Splashesobj = Instantiate(Splashes, this.transform.position, Quaternion.identity);
                 Afterimageobj = Instantiate(Afterimage, new Vector3(3.0f, 0.0f, 0.0f), Quaternion.identity);
+                ChangeCameraAngleobj = Instantiate(ChangeCameraAngle, this.transform.position, Quaternion.identity);
 
                 Concentratobj.transform.SetParent(child.transform, true);
                 Splashesobj.transform.SetParent(Player.transform, true);
                 Afterimageobj.transform.SetParent(Player.transform, true);
+                ChangeCameraAngleobj.transform.SetParent(Player.transform, true);
 
                 Splashesobj.transform.rotation = Quaternion.Euler(0, 180, 0);
             }

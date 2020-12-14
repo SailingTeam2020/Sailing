@@ -91,7 +91,7 @@ namespace Sailing.SingletonObject
 
 			_nextSEName = seName;
 			AttachSESource.PlayOneShot(_seDic[_nextSEName]);
-			Debug.Log("Play[" + seName + "]");
+			//Debug.Log("Play[" + seName + "]");
 		}
 
 
