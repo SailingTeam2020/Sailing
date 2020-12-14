@@ -26,7 +26,7 @@ namespace Common
 					{
 						instance = (new GameObject()).AddComponent<T>();
 						instance.name = "Singleton_" + typeof(T);
-						Debug.Log("[" + instance.name + "]を生成しました");
+						//Debug.Log("[" + instance.name + "]を生成しました");
 					}
 				}
 				return instance;

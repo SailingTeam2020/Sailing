@@ -32,7 +32,7 @@ namespace Sailing
             if (!CourseData)
             {
                 CourseData = (CourseData)Resources.Load("Scriptable/SoloPlayData");
-                Debug.Log("コースデータが存在しないため追加します");
+                //Debug.Log("コースデータが存在しないため追加します");
                 return;
             }
 

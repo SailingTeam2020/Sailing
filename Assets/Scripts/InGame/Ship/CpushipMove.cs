@@ -33,7 +33,7 @@ namespace Sailing
         void Start()
         {
             Goal = GameObject.FindGameObjectWithTag("GoalNavPoint");
-            Debug.Log("ゴール " + Goal);
+            //Debug.Log("ゴール " + Goal);
             // InCheck = false;
             i = 0;
             Cpu_Speed = 0; //0.05f;//テスト的に設定　プレイヤーに合わせて変える必要あり

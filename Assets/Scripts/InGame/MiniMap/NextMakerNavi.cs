@@ -10,7 +10,7 @@ namespace Sailing
 		private PhotonView photonView;
 		private ShipObject shipObject;
 		private CourseManager courseManager;
-		private Transform nextMakerLine;
+		public Transform nextMakerLine;
 		private LineRenderer lineRenderer;
 
 		private void Start()

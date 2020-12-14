@@ -53,9 +53,9 @@ namespace Sailing.Online
                 // speed = CpushipMove.Cpu_Speed;
                 flg = false;
             }
-            Debug.Log("root" + root);
-            Debug.Log("GameObject" + shipMove);
-            Debug.Log("Flg " + flg);
+            //Debug.Log("root" + root);
+            //Debug.Log("GameObject" + shipMove);
+            //Debug.Log("Flg " + flg);
 
         }
 

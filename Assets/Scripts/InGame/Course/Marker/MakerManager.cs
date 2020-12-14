@@ -38,7 +38,7 @@ namespace Sailing
 
             //最小値が3つ最大はマーカー座標の登録数(制限をかけるかも)
             MarkerNumberRandom = UnityEngine.Random.Range(3, makerList.Count);
-            Debug.Log("マーカー数 " + MarkerNumberRandom);
+            //Debug.Log("マーカー数 " + MarkerNumberRandom);
 
             //Randomにシャッフルして、上からMarkerNumberRandom分取り出す。
             var RandomList = Enumerable.Range(0, makerList.Count).OrderBy(n => Guid.NewGuid()).Take(MarkerNumberRandom).ToArray();
@@ -46,7 +46,7 @@ namespace Sailing
             
                 for (int s = 0; s < RandomList.Length; s++)
                 {
-                    Debug.Log(RandomList[s]);
+                    //Debug.Log(RandomList[s]);
                 }
              
                 for (int i = 0; i < MarkerNumberRandom; i++)
