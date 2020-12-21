@@ -20,7 +20,7 @@ namespace Sailing.Online
         {
             base.OnJoinedRoom();
 
-            RoomID.text = "ルームID : " + PhotonNetwork.CurrentRoom.Name;
+            //RoomID.text = "ルームID : " + PhotonNetwork.CurrentRoom.Name;
             //Debug.Log("RoomID : " + roomID);
 
         }

@@ -25,16 +25,44 @@ public class KickButton : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("(・。・)");
+        //Debug.Log("(・。・)");
         kickMenu.SetActive(true);
         roomOutButton.SetActive(false);
         playerKickButton.SetActive(false);
-        if(this.gameObject.tag == "Player2")
+        if (this.gameObject.tag == "Player2")
         {
-            
+
             Player = "Player2";
-            Debug.Log(Player);
+            //Debug.Log(Player);
             //Debug.Log("Player2!!!!");
+        }
+        else if (this.gameObject.tag == "Player3")
+        {
+            Player = "Player3";
+        }
+        else if (this.gameObject.tag == "Player4")
+        {
+            Player = "Player4";
+        }
+        else if (this.gameObject.tag == "Player5")
+        {
+            Player = "Player5";
+        }
+        else if (this.gameObject.tag == "Player6")
+        {
+            Player = "Player6";
+        }
+        else if (this.gameObject.tag == "Player7")
+        {
+            Player = "Player7";
+        }
+        else if(this.gameObject.tag == "Player8")
+        {
+            Player = "Player8";
+        }
+        else
+        {
+            Player = "AllPlayer";
         }
     }
 

@@ -46,9 +46,12 @@ namespace Sailing.Online
             private set;
         }
 
+        public bool firstFlg;
+
         private void Awake()
         {
             i = 0;
+            firstFlg = false;
             //メッセージ処理の実行を再開する
             PhotonNetwork.IsMessageQueueRunning = true;
             
@@ -114,7 +117,6 @@ namespace Sailing.Online
         /// </summary>
         private void UpdateMatchingPlayer()
         {
-
             //パネルの状態を更新する
             for (int count = 0; count < PhotonNetwork.CurrentRoom.MaxPlayers; count++)
             {
@@ -133,6 +135,18 @@ namespace Sailing.Online
                     name.text = "募集中";
                 }
 
+                if (firstFlg)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        if (kickPlayer[i] == null)
+                        {
+                            kickPlayer[i] = kickPlayer[i + 1];
+                            Debug.Log(kickPlayer[i]);
+                        }
+                    }
+                }
+                firstFlg = true;
 
             }
 
@@ -208,11 +222,9 @@ namespace Sailing.Online
         /// <returns></returns>
         public Player[] ReturnKickPlayer()
         {
-            Player[] playerData;
 
-            playerData = kickPlayer;
+            return kickPlayer;
 
-            return playerData;
         }
 
         #region PhotonCallback
@@ -226,6 +238,11 @@ namespace Sailing.Online
             base.OnPlayerEnteredRoom(newPlayer);
             kickPlayer[i] = newPlayer;
             i++;
+            if (i > 7)
+            {
+                
+                i = 0;
+            }
             UpdateMatchingPlayer();
 
         }
