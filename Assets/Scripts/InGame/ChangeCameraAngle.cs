@@ -52,9 +52,12 @@ namespace Sailing
  */
         void TargetLook(Vector3 FromPoint, Vector3 ToPoint_Point, Vector3 ToPoint_Camera)
         {
-
+            ToPoint_Camera.y = 0;
             Vector3 FromVector = ToPoint_Point - FromPoint;//0°のライン
             Vector3 ToVector = ToPoint_Camera - FromPoint;//目的の角度までのライン
+            //Debug.Log("FromPoint" + FromPoint);
+            //Debug.Log("ToPoint_Point" + ToPoint_Point);
+            //Debug.Log("ToPoint_Camera" + ToPoint_Camera);
             //Debug.Log("FromVector" + FromVector);
             //Debug.Log("ToVector" + ToVector);
             AngleValue = Vector3.SignedAngle(FromVector, ToVector, Vector3.up);
@@ -62,15 +65,15 @@ namespace Sailing
             float AngleVector = Vector3.Distance(FromPoint, ToPoint_Point);
             if (AngleValue < 0)
             {
-                //RotationSpeed = (-158 - AngleValue) * aaa;
-                RotationSpeed = -20;
-                //Debug.Log("マイナス" + ((-158  - AngleValue) * aaa));
+                RotationSpeed = (-180 - AngleValue) * 0.8f;
+                //RotationSpeed = -20;
+                //Debug.Log("マイナス" + ((-180 - AngleValue) * 0.8f));
             }
             else
             {
-                //RotationSpeed = (180 + AngleValue) * aaa;
-                RotationSpeed = 20;
-                //Debug.Log("プラス" + ((180 + AngleValue) * aaa));
+                RotationSpeed = (180 + AngleValue) * 0.2f;
+               //RotationSpeed = 20;
+               //Debug.Log("プラス" + ((180 + AngleValue) *  0.8f));
             }
             if (AngleVector > 30)
             {
