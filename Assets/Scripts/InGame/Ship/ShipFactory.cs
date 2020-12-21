@@ -38,20 +38,22 @@ namespace Sailing
             {
                 if (PhotonNetwork.LocalPlayer.ActorNumber == 1) CPUFactory = 3;
                 else CPUFactory = CPUFactory - PhotonNetwork.LocalPlayer.ActorNumber;
-                for (int i = 0; i < CPUFactory; i++)
-                {
-                    CPUx += 6;//CPU生成時のX座標を6ずつずらす
-                    CPUz += 5;
-                    Vector3 CPUvec = new Vector3(CPUx + start.x, start.y, start.z + CPUz);
-                    GameObject CPUobj = PhotonNetwork.Instantiate(CPUShipPrefabName, CPUvec, Quaternion.identity) as GameObject;
-                    CPUobj.name = "CPUShip";
-                    CPUobj.AddComponent<CPUShipObject>();
-                    if (!CPUobj)
+                if (PhotonNetwork.IsMasterClient) {
+                    for (int i = 0; i < CPUFactory; i++)
                     {
-                        Debug.Log("CPU_" + i + "の生成に失敗しました");
-                        return null;
-                    }
+                        CPUx += 6;//CPU生成時のX座標を6ずつずらす
+                        CPUz += 5;
+                        Vector3 CPUvec = new Vector3(CPUx + start.x, start.y, start.z + CPUz);
+                        GameObject CPUobj = PhotonNetwork.Instantiate(CPUShipPrefabName, CPUvec, Quaternion.identity) as GameObject;
+                        CPUobj.name = "CPUShip";
+                        CPUobj.AddComponent<CPUShipObject>();
+                        if (!CPUobj)
+                        {
+                            Debug.Log("CPU_" + i + "の生成に失敗しました");
+                            return null;
+                        }
 
+                    }
                 }
             }
 

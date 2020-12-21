@@ -59,7 +59,7 @@ namespace Sailing
             //Debug.Log("ToVector" + ToVector);
             AngleValue = Vector3.SignedAngle(FromVector, ToVector, Vector3.up);
             //Debug.Log("角度数値" + AngleValue);
-            float aaa = 0.04f;
+            float AngleVector = Vector3.Distance(FromPoint, ToPoint_Point);
             if (AngleValue < 0)
             {
                 //RotationSpeed = (-158 - AngleValue) * aaa;
@@ -72,7 +72,10 @@ namespace Sailing
                 RotationSpeed = 20;
                 //Debug.Log("プラス" + ((180 + AngleValue) * aaa));
             }
-            MainCamera.transform.RotateAround(FromPoint, Vector3.up, RotationSpeed * Time.deltaTime);
+            if (AngleVector > 30)
+            {
+                MainCamera.transform.RotateAround(FromPoint, Vector3.up, RotationSpeed * Time.deltaTime);
+            }
         }
 
     }
