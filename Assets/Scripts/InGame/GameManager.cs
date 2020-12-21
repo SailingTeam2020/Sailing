@@ -50,6 +50,8 @@ namespace Sailing
         private void Start()
         {
 
+            Application.targetFrameRate = 60;
+
             FadeManager.FadeIn();
 
             //waitingText.text = "他の人を待っています";
