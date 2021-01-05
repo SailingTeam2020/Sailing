@@ -1,4 +1,14 @@
-﻿using System.Collections;
+﻿/*
+ *作成者：小林凱
+ *更新日：01/04
+ *更新者：小林凱
+ *概要　：当オブジェクトから風発生オブジェクトまでの角度をとり、返す処理。
+ *外部変数
+ * WindObject       ：風発生オブジェクト
+ * WindEffectObject ：エフェクトにするオブジェクト
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -84,6 +94,11 @@ public class WindEffect : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// エフェクトにするオブジェクトを生成する。
+    /// 指定範囲に指定数のオブジェクトを生成する。
+    /// </summary>
     public void WindEffectGenerate()
     {
         if (EffectCount == EffectMax) return;
@@ -95,6 +110,13 @@ public class WindEffect : MonoBehaviour
         EffectCount++;
     }
 
+
+    /// <summary>
+    /// 各オブジェクト間の角度を計算する
+    /// </summary>
+    /// <param name="ThisPosition">当オブジェクト</param>
+    /// <param name="WindPosition">風発生オブジェクト</param>
+    /// <returns></returns>
     public float GetAng(Vector3 ThisPosition, Vector3 WindPosition)
     {
 
@@ -109,6 +131,10 @@ public class WindEffect : MonoBehaviour
         return angle;
     }
 
+    /// <summary>
+    /// 角度を取得してその値を返す。
+    /// </summary>
+    /// <returns></returns>
     public float SetAng()
     {
         float WD = 0.0f;

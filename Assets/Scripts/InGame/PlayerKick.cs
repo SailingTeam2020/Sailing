@@ -1,4 +1,17 @@
-﻿using System.Collections.Generic;
+﻿/*
+ *作成者：小林凱
+ *更新日：01/04
+ *更新者：小林凱
+ *概要　：プレイヤーを強制退出させる処理
+ *      　ルームマスターのみがボタンを押すことができる
+ *外部変数
+ * kickMenu         ：確認画面オブジェクト
+ * kickButton       ：確認画面のYesボタンオブジェクト
+ * roomOutButton    ：退出ボタンオブジェクト
+ * playerKickButton ：このスクリプトがアタッチされているオブジェクト
+ */
+
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
@@ -17,38 +30,42 @@ namespace Sailing.Online
         GameObject kickButton;
         [SerializeField]
         GameObject roomOutButton;
-        [SerializeField]
-        GameObject OnlineManager;
 
         Player[] kickPlayer = new Player[7];
 
         string Player;
 
-        byte cnt;
-
         private void Awake()
         {
             Player = null;
+            // ルームマスターじゃない場合はこのオブジェクトを非表示に
             if (!PhotonNetwork.IsMasterClient)
             {
                 this.gameObject.SetActive(false);
             }
+            // マッチングマネージャーのkickPlayerを参照し格納する
             foreach (Player player in PhotonNetwork.PlayerList)
             {
                 kickPlayer = FindObjectOfType<Sailing.Online.MatchingManager>().kickPlayer;
             }
-            cnt = 0;
         }
 
+        /// <summary>
+        /// ボタン押下時の処理。
+        /// ルームマスターのみが操作可能。
+        /// 押されたボタンのプレイヤーを強制退出させる。
+        /// </summary>
         public void OnClick()
         {
             Debug.Log(kickPlayer[0]);
+            // 退出させるプレイヤーは何Pかの情報を取得する
             Player = FindObjectOfType<KickButton>().returnPlayer();
-            //Player = FindObjectOfType<KickButton>().returnPlayer();
             //Debug.Log(Player);
+
             kickButton.SetActive(true);
             roomOutButton.SetActive(true);
             kickMenu.SetActive(false);
+
             if (Player == "Player2")
             {
                 if (PhotonNetwork.IsMasterClient)
