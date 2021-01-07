@@ -1,9 +1,17 @@
-﻿/*
+﻿/*このソースが何か
  * 
- * 長嶋
+ * 作成者		：長嶋
+ * 作成日		：
+ * ソース概要	：
+ * 外部参照変数	：
+ * 
+ * 更新者		：
+ * 更新日		：
+ * 更新内容		：
  * 
  */
 
+//envionment = kankyou
 using Sailing.SingletonObject;
 using System.Collections;
 using System.Collections.Generic;
