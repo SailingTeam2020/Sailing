@@ -3,7 +3,7 @@
  *更新日：01/04
  *更新者：小林凱
  *概要　：強制退出ボタンを押したときに起こる処理。
- *      不必要なUIを非表示にし、押したボタンがどのプレイヤーのものかを返す処理。
+ *        不必要なUIを非表示にし、押したボタンがどのプレイヤーのものかを返す処理。
  *外部変数
  * kickMenu         ：確認画面オブジェクト
  * roomOutButton    ：退出ボタンオブジェクト
@@ -96,6 +96,10 @@ public class KickButton : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 押されたボタンがどのプレイヤーのものか返す関数
+    /// </summary>
+    /// <returns>プレイヤー番号の情報</returns>
     public string returnPlayer()
     {
         return Player;
