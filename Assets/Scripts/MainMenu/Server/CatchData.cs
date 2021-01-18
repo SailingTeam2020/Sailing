@@ -54,6 +54,7 @@ namespace Sailing.Server
                 string rank = (string)data["rank"];
                 string name = (string)data["name"];
                 float time = float.Parse((string)data["time"]);
+                string money = (string)data["money"];
 
                 //ランキングの1位分生成してコンテンツに親子関係をつける
                 GameObject ranking = Instantiate(rankPrefab) as GameObject;
@@ -66,7 +67,7 @@ namespace Sailing.Server
                 resultObject[index].transform.GetChild(0).GetComponent<Text>().text = rank;
                 resultObject[index].transform.GetChild(1).GetComponent<Text>().text = name;
                 resultObject[index].transform.GetChild(2).GetComponent<Text>().text = ConvertStringTime(time);
-
+                resultObject[index].transform.GetChild(3).GetComponent<Text>().text = money;
 
                 index++;
 
