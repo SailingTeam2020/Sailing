@@ -15,17 +15,21 @@ namespace Sailing.Server
         float ProductPrice;//商品の価格を格納
         float ResultMoney;//自身が持っているお金からProductPriceを引いた値を格納する
         string Conversion_string;//float型をstring型に変更する
+        GameObject priceChange;
 
         // Start is called before the first frame update
         void Start()
         {
-            ProductPrice = 100;
+            priceChange = GameObject.Find("PriceChangeObj");
         }
 
         public void OnClickButton()
         {
             User_id = PlayerPrefs.GetString(UserDataKey.UserID_Key);
             //Debug.Log("プレイヤーID" + User_id);
+            //ボタンのオブジェクト名で価格を変更する
+            ProductPrice = priceChange.GetComponent<PriceChange>().ChangPrice(this.name);
+            //Debug.Log("価格"+ProductPrice);
             StartCoroutine(Method(User_id));
         }
         private IEnumerator Method(string user_id)
@@ -54,7 +58,7 @@ namespace Sailing.Server
                 EraseBack = EraseForward.Replace("\"}]", "");
                 //Debug.Log("テキスト: " + EraseBack);
                 Conversion_float = float.Parse(EraseBack);
-                //ResultMoney = 1000;
+
                 ResultMoney = Conversion_float - ProductPrice;
                 //Debug.Log("計算結果を送る " + ResultMoney);
                 Conversion_string = ResultMoney.ToString();
