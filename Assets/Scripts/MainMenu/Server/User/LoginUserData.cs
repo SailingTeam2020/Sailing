@@ -60,7 +60,7 @@ namespace Sailing.Server {
 
             ResponseLog(request.responseCode);
 
-            if (request.isHttpError || request.isNetworkError)
+            if (request.isHttpError || request.isNetworkError || !writeUserData(request.downloadHandler.text))
             {
                 Debug.LogError("http Post NG: " + request.error);
                 gameObject.GetComponent<Button>().interactable = true;
@@ -68,8 +68,7 @@ namespace Sailing.Server {
                 yield break;
             }
 
-            writeUserData(request.downloadHandler.text);
-
+            
             Debug.Log("ログインが完了しました");
 
             UserData userData = gameObject.AddComponent<UserData>();
@@ -83,11 +82,11 @@ namespace Sailing.Server {
 
         }
 
-        void writeUserData(string userData)
+        bool writeUserData(string userData)
         {
             Debug.Log(userData);
 
-
+            return true;
         }
 
 

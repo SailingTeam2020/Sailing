@@ -1,4 +1,14 @@
-﻿using Photon.Pun;
+﻿/*ShipFactroy.cs
+ * 作成者          :槌田俊
+ * 作成日          :
+ * 最終更新者　　　:
+ * 最終更新日      :
+ * コード概要      :(何のためのソースか)
+ * コード使用方法  :
+ * 外部参照変数    :
+ * 更新内容        :
+ */
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,9 +18,14 @@ namespace Sailing
     public class ShipFactory : MonoBehaviour
     {
 
+        /// <summary>
+        /// 生成するCPUの数
+        /// 
+        /// </summary>
         [SerializeField] int CPUFactory = 8;
 
         private const string ShipPrefabName = "Ship";
+        
         private const string CPUShipPrefabName = "CPUShip";
         public GameObject Create()
         {
