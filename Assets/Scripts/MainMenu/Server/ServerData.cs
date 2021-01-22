@@ -14,6 +14,8 @@ namespace Sailing.Server
         public const string GetRanking = "http://ydasailing.php.xdomain.jp/GetRanking.php";
         public const string RegisterRanking = "http://ydasailing.php.xdomain.jp/RegisterRecord.php";
         public const string RegisterUserData = "http://ydasailing.php.xdomain.jp/RegisterUserData.php";
+        public const string GetUserMoney = "http://ydasailing.php.xdomain.jp/GetUserMoney.php";
+        public const string SetUserMoney = "http://ydasailing.php.xdomain.jp/SetUserMoney.php";
 
         public const int MaxWaitTime = 15;
 
