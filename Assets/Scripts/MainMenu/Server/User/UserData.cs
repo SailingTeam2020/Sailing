@@ -16,6 +16,12 @@ namespace Sailing.Server
 			private set;
 		}
 
+		public int UserPassWord {
+			get;
+			private set;
+		}
+
+
 		public int Prefecture {
 			get;
 			private set;
@@ -34,19 +40,23 @@ namespace Sailing.Server
 
 		}
 
+		//各変数にPlayerPrefsからデータを読み込む
 		public void ReadUserData()
 		{
 			UserID = PlayerPrefs.GetString(UserDataKey.UserID_Key, UserDataKey.UserID_Default);
 			UserName = PlayerPrefs.GetString(UserDataKey.UserName_Key, UserDataKey.UserName_Default);
+			UserPassWord = PlayerPrefs.GetInt(UserDataKey.UserPassWord_Key, UserDataKey.UserPassWord_Default);
 			Prefecture = PlayerPrefs.GetInt(UserDataKey.UserPref_Key, UserDataKey.UserPref_Default);
 			Birthday = PlayerPrefs.GetString(UserDataKey.UserBirth_Key, UserDataKey.UserBirth_Default);
 		}
 
-		public void WriteUserData(string id, string name, int pref, string birth)
+		//PlayerPrefsにデータを書き込む
+		public void WriteUserData(string id, string name, int password,int pref, string birth)
 		{
 
 			PlayerPrefs.SetString(UserDataKey.UserID_Key, id);
 			PlayerPrefs.SetString(UserDataKey.UserName_Key, name);
+			PlayerPrefs.SetInt(UserDataKey.UserPassWord_Key, password);
 			PlayerPrefs.SetInt(UserDataKey.UserPref_Key, pref);
 			PlayerPrefs.SetString(UserDataKey.UserBirth_Key, birth);
 
@@ -54,6 +64,16 @@ namespace Sailing.Server
 
 		}
 
+		public void LoginUserData(string name,int password,int pref,string birth)
+        {
+			PlayerPrefs.SetString(UserDataKey.UserName_Key, name);
+			PlayerPrefs.SetInt(UserDataKey.UserPassWord_Key, password);
+			PlayerPrefs.SetInt(UserDataKey.UserPref_Key, pref);
+			PlayerPrefs.SetString(UserDataKey.UserBirth_Key, birth);
+        }
+
+		//PlayerPrefsｎデータをすべて消す　
+		//※音量のデータも消してしまうため、非推奨
 		public void DeleteUserData()
 		{
 

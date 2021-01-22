@@ -1,7 +1,15 @@
-﻿/*
+﻿/*スクリプト名     ：
+ * 作成者          ：長嶋
+ * 作成日          ：不明
+ * 概要            ：Userのデータを登録する為に
  * 
- * 長嶋
+ * 更新者          ：足立拓海
+ * 更新日          ：2021/01/15
+ * 更新内容        ：ログアウトボタンの追加
  * 
+ * 更新者          ：足立拓海
+ * 更新日          ：2021/01/18
+ * 更新内容        ：パスワードの追加
  */
 
 using Common;
@@ -19,6 +27,8 @@ namespace Sailing.Server
         [SerializeField]
         private Text  nameText;
         [SerializeField]
+        private Text passWordText;
+        [SerializeField]
         private Dropdown prefList;
         [SerializeField]
         private Text yearText;
@@ -28,6 +38,11 @@ namespace Sailing.Server
         private Text dayText;
         [SerializeField]
         private Button registerButton;
+
+        //追記
+        [SerializeField]
+        private Button LogOutButton;
+
 
         [SerializeField] private string id = "None";
 
@@ -69,13 +84,16 @@ namespace Sailing.Server
 
             form.AddField("id", id);
             form.AddField("name", nameText.text);
+            form.AddField("password", int.Parse(passWordText.text));
             form.AddField("pref", prefList.value);
 
+            //登録日の登録用変数
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
             sb.Append(yearText.text).Append(monthText.text).Append(dayText.text);
             form.AddField("birthday", sb.ToString());
 
+            //Post内で指定したURLに、formの中身を送る。
             UnityWebRequest request = UnityWebRequest.Post(ServerData.RegisterUserData, form);
 
             request.timeout = ServerData.MaxWaitTime;
@@ -96,12 +114,30 @@ namespace Sailing.Server
             Debug.Log("登録が完了しました");
 
             UserData userData = gameObject.AddComponent<UserData>();
-
+            
             // 登録が完了したらIDを端末に保持するし、ボタンを押せなくする
-            userData.WriteUserData(id, nameText.text, prefList.value, sb.ToString());
+            userData.WriteUserData(id, nameText.text, int.Parse(passWordText.text),prefList.value, sb.ToString());
             registerButton.interactable = false;
 
+            LogOutButton.interactable = true;
         }
+
+        public void LogOut()
+        {
+            //UserDataDelete userDataDelete = GetComponent<UserDataDelete>();
+            
+            if (UserDataDelete.Instance.PlayerPresDateDelete())
+            {
+                Debug.Log("データの削除が完了しました。");
+            }
+            else
+            {
+                Debug.Log("データが削除できませんでした。");
+            }
+            registerButton.interactable = true;
+            LogOutButton.interactable = false;
+        }
+
 
         /// <summary>
         /// @brief 下記サイトのレスポンス結果をLogに出力する
