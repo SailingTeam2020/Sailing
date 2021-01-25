@@ -10,9 +10,11 @@
 
 using Common;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using MiniJSON;
 
 
 namespace Sailing.Server {
@@ -57,8 +59,11 @@ namespace Sailing.Server {
             request.timeout = ServerData.MaxWaitTime;
             yield return request.SendWebRequest();
 
+            
 
             ResponseLog(request.responseCode);
+
+            //Debug.Log(request.downloadHandler.data);
 
             if (request.isHttpError || request.isNetworkError || !writeUserData(request.downloadHandler.text))
             {
@@ -84,7 +89,47 @@ namespace Sailing.Server {
 
         bool writeUserData(string userData)
         {
+
             Debug.Log(userData);
+
+            
+            var userList = Json.Deserialize(userData) as Dictionary<string, object>;
+            Debug.Log((string)userList["id"]);
+            Debug.Log((string)userList["name"]);
+            Debug.Log((string)userList["password"]);
+            Debug.Log((string)userList["pref_id"]);
+
+            string birth = (string)userList["birthday"];
+            birth = birth.Replace("-", "");
+
+            Debug.Log(birth);
+
+            PlayerPrefs.SetString(UserDataKey.UserID_Key, (string)userList["id"]);
+            PlayerPrefs.SetString(UserDataKey.UserName_Key, (string)userList["name"]);
+            PlayerPrefs.SetInt(UserDataKey.UserPassWord_Key, int.Parse((string)userList["password"]));
+            PlayerPrefs.SetInt(UserDataKey.UserPref_Key, int.Parse((string)userList["pref_id"]));
+            PlayerPrefs.SetString(UserDataKey.UserBirth_Key, birth);
+
+            PlayerPrefs.Save();
+
+            //IList userList = (IList)Json.Deserialize(userData);
+
+
+            /*foreach (var data in jsonNode)
+            {
+                string name = data["name"].Get<string>();
+                string password = data["password"].Get<string>();
+                string pref = data["pref_id"].Get<string>();
+                string birth = data["birthday"].Get<string>();
+
+                Debug.Log("name = " +name);
+                Debug.Log("password = " +password);
+                Debug.Log("pref = " +pref);
+                Debug.Log("birth = " +birth);
+                
+                
+                break;
+            }*/
 
             return true;
         }

@@ -29,23 +29,23 @@ namespace Sailing.Server
 
 			UserData userData = gameObject.AddComponent<UserData>();
 			Debug.Log(userData.UserID);
-			/*if (userData.UserID == UserDataKey.UserID_Default || userData.UserID == null)//userData.UserID == UserDataKey.UserID_Default || 
-			{
-				registerUI.gameObject.SetActive(false);
-				noRegisterUI.gameObject.SetActive(false);
-				userLoginInterfaceUI.gameObject.SetActive(true);
-			}
-			else */if (userData.UserName == UserDataKey.UserName_Default || userData.UserName == null)
-			{
+			if (userData.UserID == UserDataKey.UserID_Default )//|| userData.UserName == UserDataKey.UserName_Default)
+			{//ユーザー登録画面
 				registerUI.gameObject.SetActive(true);
 				noRegisterUI.gameObject.SetActive(false);
 				userLoginInterfaceUI.gameObject.SetActive(false);
 			}
-			else
-			{
+			else if (userData.UserName != UserDataKey.UserName_Default)// || userData.UserName != null)
+			{//ログアウト画面
 				registerUI.gameObject.SetActive(false);
 				noRegisterUI.gameObject.SetActive(true);
 				userLoginInterfaceUI.gameObject.SetActive(false);
+			}
+			else
+			{//ユーザーログイン画面
+				registerUI.gameObject.SetActive(false);
+				noRegisterUI.gameObject.SetActive(false);
+				userLoginInterfaceUI.gameObject.SetActive(true);
 			}
 
 			/*if (userData.UserName == UserDataKey.UserName_Default || userData.UserName == null)
