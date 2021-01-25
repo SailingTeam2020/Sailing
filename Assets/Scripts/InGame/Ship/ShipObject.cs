@@ -110,7 +110,7 @@ namespace Sailing
                 child.transform.position = gameObject.transform.position + new Vector3(0.0f, 4.0f, -10.0f);
                 child.transform.LookAt(gameObject.transform);
 
-                child.AddComponent<PostProcessLayer>();//shipにPostProcessLayerを追加する
+                //child.AddComponent<PostProcessLayer>();//shipにPostProcessLayerを追加する
                 child.GetComponent<PostProcessLayer>().volumeLayer = 1<<9;//9番レイヤーのみ指定
                 child.GetComponent<PostProcessLayer>().volumeTrigger = child.gameObject.transform;//TargetをGameViewCameraに指定
                 
