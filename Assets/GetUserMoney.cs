@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 namespace Sailing.Server
 {
     public class GetUserMoney : MonoBehaviour
     {
+
+        Scene loadScene;
+
         string User_id;//自身のUser_idを格納する変数
         string TextSent;//送信されてきたテキストを格納する
         string EraseForward;//帰ってきたテキストからいらない文字を消す(前方)
@@ -16,6 +20,11 @@ namespace Sailing.Server
         float ResultMoney;//自身が持っているお金からProductPriceを引いた値を格納する
         string Conversion_string;//float型をstring型に変更する
         GameObject priceChange;
+
+        private void Awake()
+        {
+            loadScene = SceneManager.GetActiveScene();
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -31,6 +40,9 @@ namespace Sailing.Server
             ProductPrice = priceChange.GetComponent<PriceChange>().ChangPrice(this.name);
             //Debug.Log("価格"+ProductPrice);
             StartCoroutine(Method(User_id));
+            PlayerPrefs.SetString(UserDataKey.UserMoney_Key, Conversion_string);
+            //SceneManager.LoadScene(loadScene.name);
+            GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>().GetUserData();
         }
         private IEnumerator Method(string user_id)
         {
