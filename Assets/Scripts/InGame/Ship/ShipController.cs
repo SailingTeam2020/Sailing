@@ -27,7 +27,7 @@ namespace Sailing
         public void Rotate()
         {
 
-            transform.Rotate((RotateDirection * 0.05f) , Space.Self);
+            transform.Rotate((RotateDirection * 0.65f) , Space.Self);
 
             Gyro();
 

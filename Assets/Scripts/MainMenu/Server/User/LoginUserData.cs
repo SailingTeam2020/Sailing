@@ -2,13 +2,11 @@
  *作成者      ：足立拓海
  *作成日      ：2021/01/18
  *概要        ：ログインをする際の処理。PHPに送るデータなどやり取りをする。
- *外部参照変数：UserData→Loginをした際、PlayerPrefsにデータを保存する。
- *              
- *
- *
+ *外部参照変数：PlayerPrefs→ユーザーのデータを登録。         
+ *参考サイト　：https://docs.unity3d.com/Manual/UnityWebRequest.html
+ *              https://qiita.com/phi/items/914bc839b543988fc0ec   
  */
 
-using Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +14,6 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using MiniJSON;
 using UnityEngine.SceneManagement;
-
 
 namespace Sailing.Server {
     public class LoginUserData : MonoBehaviour
@@ -62,8 +59,6 @@ namespace Sailing.Server {
             request.timeout = ServerData.MaxWaitTime;
             yield return request.SendWebRequest();
 
-            
-
             ResponseLog(request.responseCode);
 
             //Debug.Log(request.downloadHandler.data);
@@ -82,8 +77,6 @@ namespace Sailing.Server {
             UserData userData = gameObject.AddComponent<UserData>();
 
             // 登録が完了したらIDを端末に保持するし、ボタンを押せなくする
-            //userData.LoginUserData(nameText.text, int.Parse(passWordText.text), prefList.value, sb.ToString());
-            //registerButton.interactable = false;
             
             loginButton.interactable = true;
 
@@ -92,15 +85,15 @@ namespace Sailing.Server {
 
         bool writeUserData(string userData)
         {
+            //Debug.Log(userData);
 
-            Debug.Log(userData);
-
-            
             var userList = Json.Deserialize(userData) as Dictionary<string, object>;
-            Debug.Log((string)userList["id"]);
-            Debug.Log((string)userList["name"]);
-            Debug.Log((string)userList["password"]);
-            Debug.Log((string)userList["pref_id"]);
+            
+            //Debug　//確認用
+            //Debug.Log((string)userList["id"]);
+            //Debug.Log((string)userList["name"]);
+            //Debug.Log((string)userList["password"]);
+            //Debug.Log((string)userList["pref_id"]);
 
             string birth = (string)userList["birthday"];
             birth = birth.Replace("-", "");
@@ -115,30 +108,8 @@ namespace Sailing.Server {
 
             PlayerPrefs.Save();
 
-            //IList userList = (IList)Json.Deserialize(userData);
-
-
-            /*foreach (var data in jsonNode)
-            {
-                string name = data["name"].Get<string>();
-                string password = data["password"].Get<string>();
-                string pref = data["pref_id"].Get<string>();
-                string birth = data["birthday"].Get<string>();
-
-                Debug.Log("name = " +name);
-                Debug.Log("password = " +password);
-                Debug.Log("pref = " +pref);
-                Debug.Log("birth = " +birth);
-                
-                
-                break;
-            }*/
-
             return true;
         }
-
-
-
 
         /// <summary>
         /// @brief 下記サイトのレスポンス結果をLogに出力する
