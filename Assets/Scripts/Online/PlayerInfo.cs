@@ -10,14 +10,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace Sailing.Server
 {
     public class PlayerInfo : MonoBehaviour
     {
 
-        Scene loadScene;
 
         [SerializeField]
         private Text userNameText;
@@ -31,14 +29,11 @@ namespace Sailing.Server
         string EraseBack;//帰ってきたテキストからいらない文字を消す(後方)
 
 
-        public void Awake()
+        /*public void Awake()
         {
-
-            loadScene = SceneManager.GetActiveScene();
-
             User_id = PlayerPrefs.GetString(UserDataKey.UserID_Key);
             StartCoroutine(Method(User_id));
-        }
+        }*/
 
         private void Start()
         {
@@ -79,7 +74,7 @@ namespace Sailing.Server
 
         }
 
-        private IEnumerator Method(string user_id)
+        /*private IEnumerator Method(string user_id)
         {
             WWWForm form = new WWWForm();
             form.AddField("id", user_id);
@@ -107,7 +102,7 @@ namespace Sailing.Server
                 PlayerPrefs.SetString(UserDataKey.UserMoney_Key, EraseBack);
             }
 
-        }
+        }*/
 
     }
 }
