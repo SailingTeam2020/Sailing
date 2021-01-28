@@ -32,6 +32,12 @@ namespace Sailing.Server
 			private set;
 		}
 
+        public string HaveMoney
+        {
+            get;
+            private set;
+        }
+
 
 		private void Awake()
 		{
@@ -48,6 +54,7 @@ namespace Sailing.Server
 			UserPassWord = PlayerPrefs.GetInt(UserDataKey.UserPassWord_Key, UserDataKey.UserPassWord_Default);
 			Prefecture = PlayerPrefs.GetInt(UserDataKey.UserPref_Key, UserDataKey.UserPref_Default);
 			Birthday = PlayerPrefs.GetString(UserDataKey.UserBirth_Key, UserDataKey.UserBirth_Default);
+            HaveMoney = PlayerPrefs.GetString(UserDataKey.UserMoney_Key, UserDataKey.UserMoney_Default);
 		}
 
 		//PlayerPrefsにデータを書き込む
@@ -60,7 +67,7 @@ namespace Sailing.Server
 			PlayerPrefs.SetInt(UserDataKey.UserPref_Key, pref);
 			PlayerPrefs.SetString(UserDataKey.UserBirth_Key, birth);
 
-			PlayerPrefs.Save();
+            PlayerPrefs.Save();
 
 		}
 

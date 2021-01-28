@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 namespace Sailing.Server
 {
     public class GetUserMoney : MonoBehaviour
     {
+
+        Scene loadScene;
+
         string User_id;//自身のUser_idを格納する変数
         string TextSent;//送信されてきたテキストを格納する
         string EraseForward;//帰ってきたテキストからいらない文字を消す(前方)
@@ -16,9 +20,11 @@ namespace Sailing.Server
         float ResultMoney;//自身が持っているお金からProductPriceを引いた値を格納する
         string Conversion_string;//float型をstring型に変更する
         GameObject priceChange;
-        string ObjName;
-        [SerializeField] private GameObject SuccessScreenUI = null;//購入確認画面を非表示にする
-        [SerializeField] private GameObject PurchaseErrorScreenUI = null;
+
+        private void Awake()
+        {
+            loadScene = SceneManager.GetActiveScene();
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -31,12 +37,12 @@ namespace Sailing.Server
             User_id = PlayerPrefs.GetString(UserDataKey.UserID_Key);
             //Debug.Log("プレイヤーID" + User_id);
             //ボタンのオブジェクト名で価格を変更する
-            ObjName = priceChange.GetComponent<PriceChange>().PostObjectNameRegistrationUpdate();
-            ProductPrice = priceChange.GetComponent<PriceChange>().ChangPrice(ObjName);
+            ProductPrice = priceChange.GetComponent<PriceChange>().ChangPrice(this.name);
             //Debug.Log("価格"+ProductPrice);
             StartCoroutine(Method(User_id));
-            SuccessScreenUI.SetActive(true);
-
+            PlayerPrefs.SetString(UserDataKey.UserMoney_Key, Conversion_string);
+            //SceneManager.LoadScene(loadScene.name);
+            GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>().GetUserData();
         }
         private IEnumerator Method(string user_id)
         {
@@ -67,30 +73,22 @@ namespace Sailing.Server
 
                 ResultMoney = Conversion_float - ProductPrice;
                 //Debug.Log("計算結果を送る " + ResultMoney);
-                if (ResultMoney < 0)
+                Conversion_string = ResultMoney.ToString();
+                //Debug.Log("String計算" + Conversion_string);
+
+                WWWForm form2 = new WWWForm();
+                form2.AddField("id", user_id);
+                form2.AddField("money", Conversion_string);
+                UnityWebRequest Post_money = UnityWebRequest.Post(ServerData.SetUserMoney, form2);
+                yield return Post_money.SendWebRequest();
+                if (Post_money.isHttpError || Post_money.isNetworkError)
                 {
-                    PurchaseErrorScreenUI.SetActive(true);
-                    Debug.Log("資金不足エラー");
+                    //4.エラー確認
+                    Debug.Log("送信に失敗しました");
                 }
                 else
                 {
-                    Conversion_string = ResultMoney.ToString();
-                    //Debug.Log("String計算" + Conversion_string);
-
-                    WWWForm form2 = new WWWForm();
-                    form2.AddField("id", user_id);
-                    form2.AddField("money", Conversion_string);
-                    UnityWebRequest Post_money = UnityWebRequest.Post(ServerData.SetUserMoney, form2);
-                    yield return Post_money.SendWebRequest();
-                    if (Post_money.isHttpError || Post_money.isNetworkError)
-                    {
-                        //4.エラー確認
-                        Debug.Log("送信に失敗しました");
-                    }
-                    else
-                    {
-                        Debug.Log("送信に成功しました" + Post_money.downloadHandler.text);
-                    }
+                    Debug.Log("送信に成功しました"+Post_money.downloadHandler.text);
                 }
             }
 
