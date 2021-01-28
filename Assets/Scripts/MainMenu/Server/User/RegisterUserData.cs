@@ -42,6 +42,9 @@ namespace Sailing.Server
         [SerializeField]
         private Button registerButton;
 
+        [SerializeField]
+        private GameObject helpText;
+
         //追記
         [SerializeField]
         private Button LogOutButton;
@@ -109,6 +112,11 @@ namespace Sailing.Server
 
             if (request.isHttpError || request.isNetworkError)
             {
+
+                helpText.GetComponent<UserHelpText>().userHelpText = "登録に失敗しました。後ほど再度お試しください";
+                helpText.GetComponent<UserHelpText>().HelpTextLifeTime = 1f;
+
+
                 Debug.LogError("http Post NG: " + request.error);
                 gameObject.GetComponent<Button>().interactable = true;
                 Debug.Log("登録に失敗しました");
@@ -134,15 +142,22 @@ namespace Sailing.Server
             {
                 Debug.Log("データの削除が完了しました。");
                 //Debug.Log(loadScene.name);
+
+
+                registerButton.interactable = true;
+                LogOutButton.interactable = false;
+
+                SceneManager.LoadScene(loadScene.name);
+
             }
             else
             {
+
+                helpText.GetComponent<UserHelpText>().userHelpText = "ログアウトに失敗しました。後ほど再度お試しください";
+                helpText.GetComponent<UserHelpText>().HelpTextLifeTime = 1f;
+
                 Debug.Log("データが削除できませんでした。");
             }
-            registerButton.interactable = true;
-            LogOutButton.interactable = false;
-
-            SceneManager.LoadScene(loadScene.name);
 
         }
 

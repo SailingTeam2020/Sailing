@@ -13,10 +13,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using MiniJSON;
+using UnityEngine.SceneManagement;
 
 namespace Sailing.Server {
     public class LoginUserData : MonoBehaviour
     {
+        private Scene loadScene;
+
         [SerializeField]
         private Text nameText;
 
@@ -90,9 +93,14 @@ namespace Sailing.Server {
 
             // 登録が完了したらIDを端末に保持するし、ボタンを押せなくする
             
+
             loginButton.interactable = false;
 
             newAccountButton.interactable = false;
+
+            loadScene = SceneManager.GetActiveScene();
+
+            SceneManager.LoadScene(loadScene.name);
         }
 
         private IEnumerator AccountCreate()
@@ -115,6 +123,10 @@ namespace Sailing.Server {
             loginButton.interactable = false;
 
             newAccountButton.interactable = false;
+
+            loadScene = SceneManager.GetActiveScene();
+
+            SceneManager.LoadScene(loadScene.name);
         }
 
         bool writeUserData(string userData)
