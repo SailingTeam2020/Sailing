@@ -27,6 +27,12 @@ namespace Sailing.Server {
         private Button loginButton;
 
         [SerializeField]
+        private Button newAccountButton;
+
+        [SerializeField]
+        private GameObject helpText;
+
+        [SerializeField]
         private string playerId;
 
         private void Awake()
@@ -39,6 +45,11 @@ namespace Sailing.Server {
         {
             StartCoroutine("Login");
 
+        }
+
+        public void newAccountCreate()
+        {
+            StartCoroutine("AccountCreate");
         }
 
         private IEnumerator Login()
@@ -63,8 +74,12 @@ namespace Sailing.Server {
             if (request.isHttpError || request.isNetworkError || !writeUserData(request.downloadHandler.text))
             {
                 Debug.LogError("http Post NG: " + request.error);
-                gameObject.GetComponent<Button>().interactable = true;
+                loginButton.interactable = true;
                 Debug.Log("ログインに失敗しました");
+
+                helpText.GetComponent<UserHelpText>().userHelpText = "ログインに失敗しました。後ほど再度お試しください";
+                helpText.GetComponent<UserHelpText>().HelpTextLifeTime = 1f;
+
                 yield break;
             }
 
@@ -75,37 +90,65 @@ namespace Sailing.Server {
 
             // 登録が完了したらIDを端末に保持するし、ボタンを押せなくする
             
-            loginButton.interactable = true;
+            loginButton.interactable = false;
 
+            newAccountButton.interactable = false;
+        }
 
+        private IEnumerator AccountCreate()
+        {
+
+            if (UserDataDelete.Instance.PlayerPresDateDeleteAll())
+            {
+                Debug.Log("データの削除が完了しました。");
+            }
+            else
+            {
+                Debug.Log("データが削除できませんでした。");
+
+                helpText.GetComponent<UserHelpText>().userHelpText = "失敗しました。後ほど再度お試しください";
+                helpText.GetComponent<UserHelpText>().HelpTextLifeTime = 1f;
+
+                yield break;
+            }
+
+            loginButton.interactable = false;
+
+            newAccountButton.interactable = false;
         }
 
         bool writeUserData(string userData)
         {
             //Debug.Log(userData);
+            try
+            {
+                var userList = Json.Deserialize(userData) as Dictionary<string, object>;
 
-            var userList = Json.Deserialize(userData) as Dictionary<string, object>;
-            
-            //Debug　//確認用
-            //Debug.Log((string)userList["id"]);
-            //Debug.Log((string)userList["name"]);
-            //Debug.Log((string)userList["password"]);
-            //Debug.Log((string)userList["pref_id"]);
+                //Debug　//確認用
+                //Debug.Log((string)userList["id"]);
+                //Debug.Log((string)userList["name"]);
+                //Debug.Log((string)userList["password"]);
+                //Debug.Log((string)userList["pref_id"]);
 
-            string birth = (string)userList["birthday"];
-            birth = birth.Replace("-", "");
+                string birth = (string)userList["birthday"];
+                birth = birth.Replace("-", "");
 
-            Debug.Log(birth);
+                Debug.Log(birth);
 
-            PlayerPrefs.SetString(UserDataKey.UserID_Key, (string)userList["id"]);
-            PlayerPrefs.SetString(UserDataKey.UserName_Key, (string)userList["name"]);
-            PlayerPrefs.SetInt(UserDataKey.UserPassWord_Key, int.Parse((string)userList["password"]));
-            PlayerPrefs.SetInt(UserDataKey.UserPref_Key, int.Parse((string)userList["pref_id"]));
-            PlayerPrefs.SetString(UserDataKey.UserBirth_Key, birth);
+                PlayerPrefs.SetString(UserDataKey.UserID_Key, (string)userList["id"]);
+                PlayerPrefs.SetString(UserDataKey.UserName_Key, (string)userList["name"]);
+                PlayerPrefs.SetInt(UserDataKey.UserPassWord_Key, int.Parse((string)userList["password"]));
+                PlayerPrefs.SetInt(UserDataKey.UserPref_Key, int.Parse((string)userList["pref_id"]));
+                PlayerPrefs.SetString(UserDataKey.UserBirth_Key, birth);
 
-            PlayerPrefs.Save();
+                PlayerPrefs.Save();
 
-            return true;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
