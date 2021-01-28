@@ -38,11 +38,12 @@ namespace Sailing.Server
             //Debug.Log("プレイヤーID" + User_id);
             //ボタンのオブジェクト名で価格を変更する
             ProductPrice = priceChange.GetComponent<PriceChange>().ChangPrice(this.name);
-            //Debug.Log("価格"+ProductPrice);
+            Debug.Log("価格"+ProductPrice);
             StartCoroutine(Method(User_id));
-            PlayerPrefs.SetString(UserDataKey.UserMoney_Key, Conversion_string);
+            //PlayerPrefs.SetString(UserDataKey.UserMoney_Key, Conversion_string);
+
+            //GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>().GetUserData();
             //SceneManager.LoadScene(loadScene.name);
-            GameObject.Find("PlayerInfo").GetComponent<PlayerInfo>().GetUserData();
         }
         private IEnumerator Method(string user_id)
         {
@@ -69,12 +70,14 @@ namespace Sailing.Server
                 EraseForward = TextSent.Replace("[{\"money\":\"", "");
                 EraseBack = EraseForward.Replace("\"}]", "");
                 //Debug.Log("テキスト: " + EraseBack);
+                PlayerPrefs.SetString(UserDataKey.UserMoney_Key, EraseBack);
                 Conversion_float = float.Parse(EraseBack);
 
                 ResultMoney = Conversion_float - ProductPrice;
                 //Debug.Log("計算結果を送る " + ResultMoney);
                 Conversion_string = ResultMoney.ToString();
                 //Debug.Log("String計算" + Conversion_string);
+                PlayerPrefs.SetString(UserDataKey.UserMoney_Key, Conversion_string);
 
                 WWWForm form2 = new WWWForm();
                 form2.AddField("id", user_id);

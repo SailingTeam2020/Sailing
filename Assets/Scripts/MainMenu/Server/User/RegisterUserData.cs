@@ -17,12 +17,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Sailing.Server
 {
 
     public class RegisterUserData : MonoBehaviour
     {
+
+        private Scene loadScene;
 
         [SerializeField]
         private Text  nameText;
@@ -45,6 +48,7 @@ namespace Sailing.Server
 
 
         [SerializeField] private string id = "None";
+
 
         private void Start()
         {
@@ -125,10 +129,11 @@ namespace Sailing.Server
         public void LogOut()
         {
             //UserDataDelete userDataDelete = GetComponent<UserDataDelete>();
-            
+            loadScene = SceneManager.GetActiveScene();
             if (UserDataDelete.Instance.PlayerPresDateDelete())
             {
                 Debug.Log("データの削除が完了しました。");
+                //Debug.Log(loadScene.name);
             }
             else
             {
@@ -136,6 +141,9 @@ namespace Sailing.Server
             }
             registerButton.interactable = true;
             LogOutButton.interactable = false;
+
+            SceneManager.LoadScene(loadScene.name);
+
         }
 
 
