@@ -15,6 +15,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using MiniJSON;
+using UnityEngine.SceneManagement;
 
 
 namespace Sailing.Server {
@@ -32,10 +33,12 @@ namespace Sailing.Server {
         [SerializeField]
         private string playerId;
 
+        Scene loadScene;
+
         private void Awake()
         {
             playerId = PlayerPrefs.GetString(UserDataKey.UserID_Key, UserDataKey.UserID_Default);
-
+            loadScene = SceneManager.GetActiveScene();
         }
 
         public void LoginUser()
@@ -84,7 +87,7 @@ namespace Sailing.Server {
             
             loginButton.interactable = true;
 
-
+            SceneManager.LoadScene(loadScene.name);
         }
 
         bool writeUserData(string userData)
