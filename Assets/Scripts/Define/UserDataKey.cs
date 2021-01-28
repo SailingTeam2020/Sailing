@@ -14,7 +14,9 @@
 		public const int	UserPref_Default = 0;
 		public const string UserBirth_Key = "UserBirthday";
 		public const string UserBirth_Default = "None";
+        public const string UserMoney_Key = "UserMoney";
+        public const string UserMoney_Default = "1000";
 
-	}
+    }
 
 }
