@@ -63,4 +63,35 @@ public class UserDataDelete : SingletonMonoBehaviour<UserDataDelete>
         if (PlayerPrefs.HasKey(UserDataKey.UserName_Key)) return false;
         else return true;
     }
+
+    public bool PlayerPresDateDeleteAll()
+    {
+        PlayerPrefs.DeleteKey(UserDataKey.UserID_Key);
+        Debug.Log(UserDataKey.UserID_Key + "削除");
+
+        PlayerPrefs.DeleteKey(UserDataKey.UserID_Default);
+        Debug.Log(UserDataKey.UserID_Default + "削除");
+
+        PlayerPrefs.DeleteKey(UserDataKey.UserName_Key);
+        Debug.Log(UserDataKey.UserName_Key + "削除");
+
+        PlayerPrefs.DeleteKey(UserDataKey.UserName_Default);
+        Debug.Log(UserDataKey.UserName_Default + "削除");
+
+        PlayerPrefs.DeleteKey(UserDataKey.UserPref_Key);
+        Debug.Log(UserDataKey.UserPref_Key + "削除");
+
+        PlayerPrefs.DeleteKey(UserDataKey.UserPref_Default.ToString());
+        Debug.Log(UserDataKey.UserPref_Default + "削除");
+
+        PlayerPrefs.DeleteKey(UserDataKey.UserBirth_Key);
+        Debug.Log(UserDataKey.UserBirth_Key + "削除");
+
+        PlayerPrefs.DeleteKey(UserDataKey.UserBirth_Default);
+        Debug.Log(UserDataKey.UserBirth_Default + "削除");
+
+
+        if (PlayerPrefs.HasKey(UserDataKey.UserName_Key)) return false;
+        else return true;
+    }
 }
