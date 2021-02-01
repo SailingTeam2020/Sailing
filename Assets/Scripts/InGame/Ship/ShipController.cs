@@ -49,7 +49,7 @@ namespace Sailing
 
             if (GyroParam < -0.2f || 0.2f < GyroParam)
             {
-                this.transform.Rotate(0.0f, GyroParam*0.1f, 0.0f);
+                this.transform.Rotate(0.0f, GyroParam * 0.65f, 0.0f);
             }
 
         }

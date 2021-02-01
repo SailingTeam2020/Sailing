@@ -112,8 +112,9 @@ namespace Sailing.Server
 
             if (request.isHttpError || request.isNetworkError)
             {
-
                 helpText.GetComponent<UserHelpText>().userHelpText = "登録に失敗しました。後ほど再度お試しください";
+                //helpText.GetComponent<UserHelpText>().userHelpText = request.responseCode.ToString();
+                //helpText.GetComponent<UserHelpText>().userHelpText = request.error;
                 helpText.GetComponent<UserHelpText>().HelpTextLifeTime = 1f;
 
 
