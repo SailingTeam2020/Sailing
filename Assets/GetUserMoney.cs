@@ -11,6 +11,9 @@ namespace Sailing.Server
 
         Scene loadScene;
 
+        [SerializeField]
+        GameObject PriceObj;
+
         string User_id;//自身のUser_idを格納する変数
         string TextSent;//送信されてきたテキストを格納する
         string EraseForward;//帰ってきたテキストからいらない文字を消す(前方)
