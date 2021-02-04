@@ -155,7 +155,7 @@ namespace Sailing
         }
         void Update()
         {
-            Application.targetFrameRate = 15;
+            //Application.targetFrameRate = 15;
             //フラグがtrueになるまで呼び出す
             Cpu_Move = CPUShipMove.IsCPUMove;
 
