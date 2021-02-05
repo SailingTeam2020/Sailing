@@ -52,7 +52,7 @@ public class CheckSystemShader : MonoBehaviour
     bool checkSystem()
     {
         if (!SystemInfo.supportsComputeShaders) return false;
-
+        if (!SystemInfo.supports2DArrayTextures) return false;
 
         return true;
     }
